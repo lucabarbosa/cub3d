@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:26 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/12 19:39:40 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/12 19:42:30 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	main(int argc, char **argv)
 {
+	t_gc	*collector;
+
+	collector = NULL;
 	if (argc != 2)
 		return (1);
 	return (0);
