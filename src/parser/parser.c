@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/13 13:17:33 by lbento           ###   ########.fr       */
+/*   Created: 2026/03/13 13:12:00 by lbento            #+#    #+#             */
+/*   Updated: 2026/03/13 13:17:58 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include "../../includes/parser.h"
 
-# include "libft.h"
-# include "mlx.h"
-# include <errno.h>
-# include <fcntl.h>
-# include <math.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <unistd.h>
-# include <X11/keysym.h>
-# include <X11/X.h>
-# include "parser.h"
+void  parsing(char *argv, t_gc **collector);
 
+void  parsing(char *argv, t_gc **collector)
+{
+   char  *test;
 
-#endif
+   test = gc_malloc(collector, ft_strlen(argv));
+   ft_putstr_fd(test, 1);
+   gc_clear(collector);
+   exit (1);
+}
