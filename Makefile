@@ -6,7 +6,8 @@ LIBFT		=	libft/libft.a
 INC			=	-I ./src -I ./libft -I ./mlx
 LIBS		=	-L ./libft -l:libft.a -L ./mlx -lmlx -lXext -lX11 -lm -lbsd
 OBJ			=	$(patsubst src/%.c, obj/%.o, $(SRC))
-SRC			=	src/main.c
+SRC			=	src/main.c \
+					src/parser/parser.c
 
 all:		$(MLX) $(LIBFT) obj $(NAME)
 
