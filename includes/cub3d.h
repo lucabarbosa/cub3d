@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/13 13:17:33 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/16 15:47:33 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,13 @@
 # include <X11/X.h>
 # include "parser.h"
 
+typedef  struct s_file
+{
+   int   fd;
+   char  *path;
+   char  **lines;
+}  t_file;
+
+void	print_error(int num, t_gc **collector);
 
 #endif
