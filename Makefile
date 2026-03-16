@@ -7,7 +7,8 @@ INC			=	-I ./src -I ./libft -I ./mlx
 LIBS		=	-L ./libft -l:libft.a -L ./mlx -lmlx -lXext -lX11 -lm -lbsd
 OBJ			=	$(patsubst src/%.c, obj/%.o, $(SRC))
 SRC			=	src/main.c \
-					src/parser/parser.c
+					src/utils.c \
+					src/parser/parser.c \
 
 all:		$(MLX) $(LIBFT) obj $(NAME)
 
@@ -27,7 +28,8 @@ obj:
 			@mkdir -p obj
 
 obj/%.o:	src/%.c
-			$(CC) $(CFLAGS) $(INC) -o $@ -c $<
+			@mkdir -p $(dir $@)
+			@$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
 
 clean:
 			@make -s $@ -C libft
