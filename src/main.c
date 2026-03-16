@@ -11,12 +11,14 @@
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+#include "../libft/libft.h"
 
 int	main(int argc, char **argv)
 {
-	t_gc	*collector;
+	// t_gc	*collector;
 
-	collector = NULL;
+	// collector = NULL;
+	(void) argv;
 	if (argc != 2)
 	{
 		if (argc < 2)
