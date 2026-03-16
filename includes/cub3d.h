@@ -13,8 +13,8 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "libft.h"
-# include "mlx.h"
+# include "../libft/libft.h"
+# include "../mlx/mlx.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
@@ -27,6 +27,61 @@
 # include <unistd.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <stdint.h>
+
+# define WIN_W		1280
+# define WIN_H		720
+# define WIN_TITLE	"cub3D"
+
+/*
+** t_img — representa uma imagem MLX (frame buffer ou textura)
+**
+** img          : handle opaco retornado por mlx_new_image()
+** addr         : ponteiro para os bytes brutos dos pixels
+** bits_per_pixel: profundidade de cor (normalmente 32)
+** line_length  : bytes por linha (pode ser maior que w * bpp/8)
+** endian       : ordem dos bytes de cor (0 = little-endian)
+** w / h        : largura e altura em pixels
+*/
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		w;
+	int		h;
+}	t_img;
+
+/*
+** t_engine — camada MLX: conexão, janela e frame buffer
+**
+** mlx     : ponteiro de conexão com o servidor X (retorno de mlx_init)
+** win     : ponteiro da janela visível (retorno de mlx_new_window)
+** frame   : imagem off-screen onde desenhamos antes de jogar na janela
+** win_w/h : dimensões da janela em pixels
+** running : quando false, o loop encerra e libera os recursos
+*/
+typedef struct s_engine
+{
+	void	*mlx;
+	void	*win;
+	t_img	frame;
+	int		win_w;
+	int		win_h;
+	bool	running;
+}	t_engine;
+
+/* mlx/engine_init.c */
+int		engine_init(t_engine *e, int w, int h, const char *title);
+
+/* mlx/engine_shutdown.c */
+void	engine_shutdown(t_engine *e);
+
+/* mlx/engine_hooks.c */
+void	engine_register_hooks(t_engine *engine);
+int		on_destroy(void *param);
 
 
 #endif
