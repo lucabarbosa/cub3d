@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:26 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/16 17:05:41 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/17 22:32:04 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 int	main(int argc, char **argv)
 {
 	t_gc	*collector;
-	t_file	file;
-
-	file.fd = 0;
-	file.path = NULL;
-	file.lines = NULL;
 	
 	collector = NULL;
 	if (argc != 2)
@@ -28,8 +23,9 @@ int	main(int argc, char **argv)
 			ft_putendl_fd("The program expect some map.cub.", 2);
 		if (argc > 2)
 			ft_putendl_fd("The program only accept one map per time.", 2);
-		return (1);
+		return (EXIT_SUCCESS);
 	}
-	parsing(argv[1], &file, &collector);
-	return (0);
+	parsing(argv[1], &collector);
+	gc_clear(&collector);
+	return (EXIT_SUCCESS);
 }

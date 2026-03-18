@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:58:58 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/16 16:47:42 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/17 23:07:29 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	print_error(int num, t_gc **collector)
 		ft_putstr_fd("Invalid map. The map must be <.cub>.\n", 2);
 	if (num == 2)
 		ft_putstr_fd("The file can't be opened.\n", 2);
+	if (num == 3)
+		ft_putstr_fd("The file is empty.\n", 2);
 	gc_clear(collector);
 	exit (1);
 }
