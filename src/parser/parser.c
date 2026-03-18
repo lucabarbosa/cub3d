@@ -6,22 +6,27 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 13:12:00 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/16 20:09:55 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/17 23:08:47 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 #include "../../includes/cub3d.h"
 
-void  parsing(char *map, t_file *file, t_gc **collector);
+void  parsing(char *map, t_gc **collector);
 int	dotcub(char *map);
-void	parse_file(char *map, t_file *file, t_gc **collector);
+void	parse_file(char *map, t_file **file, t_gc **collector);
 
-void  parsing(char *map, t_file *file, t_gc **collector)
+void  parsing(char *map, t_gc **collector)
 {
+	t_file	*file;
+
+	file = gc_malloc(collector, sizeof(t_file));
+	file->content_line = NULL;
+	file->next = NULL;
 	if (dotcub(map))
 		print_error (1, collector);
-	parse_file(map, file, collector);
+	parse_file(map, &file, collector);
 }
 
 int	dotcub(char *map)
@@ -38,11 +43,10 @@ int	dotcub(char *map)
 	return (0);
 }
 
-void	parse_file(char *map, t_file *file, t_gc **collector)
+void	parse_file(char *map, t_file **file, t_gc **collector)
 {
 	int	fd;
-	int	run;
-	char	*cont;
+	char *line;
 
 	fd = open(map, __O_DIRECTORY);
 	if (fd != -1)
@@ -50,12 +54,15 @@ void	parse_file(char *map, t_file *file, t_gc **collector)
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
 		print_error(2, NULL);
-	run = 1;
-	while (run)
+	line = get_next_line(fd, collector);
+	while (line)
 	{
-		cont = get_next_line(fd, collector);
-		if (!cont)
-			run = 0;
+		if (ft_strlen (line) > 1)
+			add_content (line, file, collector);
+		gc_free(collector, line);
+		line = get_next_line(fd, collector);
 	}
 	close (fd);
+	if ((*file)->content_line == NULL)
+		print_error(3, collector);
 }

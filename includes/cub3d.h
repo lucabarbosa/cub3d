@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/16 15:47:33 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/17 22:16:03 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@
 
 typedef  struct s_file
 {
-   int   fd;
-   char  *path;
-   char  **lines;
+   char  *content_line;
+   struct s_file   *next;
 }  t_file;
 
 void	print_error(int num, t_gc **collector);

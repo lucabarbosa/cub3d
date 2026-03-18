@@ -9,6 +9,7 @@ OBJ			=	$(patsubst src/%.c, obj/%.o, $(SRC))
 SRC			=	src/main.c \
 					src/utils.c \
 					src/parser/parser.c \
+					src/parser/parser_utils.c \
 
 all:		$(MLX) $(LIBFT) obj $(NAME)
 
