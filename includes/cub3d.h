@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/12 19:37:48 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/23 15:08:12 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,15 @@
 # include <X11/X.h>
 # include <stdint.h>
 
-# define WIN_W		1280
-# define WIN_H		720
+// # define WIN_W		1280
+// # define WIN_H		720
 # define WIN_TITLE	"cub3D"
+
+#define TILE_SIZE     32
+#define MAP_NUM_ROWS  11
+#define MAP_NUM_COLS  15
+#define WIN_W         (MAP_NUM_COLS * TILE_SIZE)   /* 480 */
+#define WIN_H         (MAP_NUM_ROWS * TILE_SIZE)   /* 352 */
 
 /*
 ** t_img — representa uma imagem MLX (frame buffer ou textura)
@@ -63,6 +69,18 @@ typedef struct s_img
 ** win_w/h : dimensões da janela em pixels
 ** running : quando false, o loop encerra e libera os recursos
 */
+typedef struct s_player
+{
+  int	x;
+  int	y;
+  int	radius;
+  int	turn_direction;
+  int	walk_direction;
+  double	rotation_angle;
+  double	move_speed;
+  double	rotation_speed;
+}	t_player;
+
 typedef struct s_engine
 {
 	void	*mlx;
@@ -71,6 +89,7 @@ typedef struct s_engine
 	int		win_w;
 	int		win_h;
 	bool	running;
+  t_player	player;
 }	t_engine;
 
 /* mlx/engine_init.c */
@@ -84,4 +103,22 @@ void	engine_register_hooks(t_engine *engine);
 int		on_destroy(void *param);
 
 
+/* player/player.c */
+void    player_init(t_player *p);
+void    player_update(t_player *p);
+void    player_render(t_img *img, t_player *p);
+
+/* map/map.c */
+int     map_has_wall(double x, double y);
+void    map_render(t_img *img);
+
+/* game_loop.c */
+int     game_loop(void *param);
+
+/* mlx/draw.c */
+void    put_pixel(t_img *img, int x, int y, int color);
+void    draw_rect(t_img *img, int x, int y, int w, int h, int color);
+void    draw_circle(t_img *img, int cx, int cy, int r, int color);
+void    draw_line(t_img *img, int x0, int y0, int x1, int y1, int color);
+int     color(int r, int g, int b);
 #endif
