@@ -10,6 +10,7 @@ SRC			=	src/main.c \
 					src/utils.c \
 					src/parser/parser.c \
 					src/parser/parser_utils.c \
+					src/parser/parser_texture.c \
 
 all:		$(MLX) $(LIBFT) obj $(NAME)
 

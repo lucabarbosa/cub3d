@@ -1,7 +1,7 @@
-NO ./textures/
-SO ./textures/
-WE ./textures/
-EA ./textures/
+NO ./assets/textures/brick_wall_north.xpm
+SO ./assets/textures/brick_wall_south.xpm
+WE ./assets/textures/brick_wall_cracked_west.xpm
+EA ./assets/textures/brick_wall_cracked_east.xpm
 
 F  000, 000, 00
 C  225,30,0
