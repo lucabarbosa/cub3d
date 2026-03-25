@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 13:12:00 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/24 19:26:12 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/24 22:56:10 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,19 @@ void	parse_file(char *map, t_file *file, t_gc **collector)
 		if (ft_strlen (line) > 1)
 		{
 			if (check_texture(line, file, collector))
-				print_error(3, collector);
+					print_error(3, collector);
+			if (check_color(line, file, collector))
+					print_error(3, collector);
+			if (check_map(line, file, collector))
+					print_error(3, collector);
 		}
 		gc_free(collector, line);
 		line = get_next_line(fd, collector);
 	}
 	close (fd);
-	if (!file->no && !file->so && !file->we && !file->ea)
+	if (!file->no || !file->so || !file->we || !file->ea)
 		print_error(4, collector);
+	printf("\n--------------\n");
+	printf("%s\n", file->no);
+	printf("%s\n", file->so);
 }
