@@ -109,6 +109,7 @@ clean:
 	@printf "$(RED)🧹 Object folders removed.$(RESET)\n"
 
 fclean: clean
+	@rm -rf $(NAME)	
 	@make -s fclean -C libft
 	@printf "$(RED)💥 Binaries removed.$(RESET)\n"
 
