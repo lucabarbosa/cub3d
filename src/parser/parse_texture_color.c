@@ -6,22 +6,22 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 22:27:10 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/26 01:42:33 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/27 11:58:26 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 #include "../../includes/cub3d.h"
 
-void	check_texture(char *line, t_file *file, t_gc **collector);
-static int	dotxpm(char *file, t_gc **collector);
-void	check_color(char *line, t_file *file, t_gc **collector);
-static int	isnt_rgb(char *line, t_gc **collector);
+void			check_texture(char *line, t_file *file, t_gc **collector);
+void			check_color(char *line, t_file *file, t_gc **collector);
+static int		isnt_rgb(char *line, t_gc **collector);
+static int		dotxpm(char *file, t_gc **collector);
 
 void	check_texture(char *line, t_file *file, t_gc **collector)
 {
-	char *path;
-	
+	char	*path;
+
 	path = ft_strtrim(line, "\n", collector);
 	if (!path)
 		print_error(10, collector);
@@ -49,7 +49,7 @@ static int	dotxpm(char *line, t_gc **collector)
 	int	len;
 
 	len = ft_strlen(line);
-	if (len == 0)
+	if (len < 5)
 		return (1);
 	if (ft_strncmp((line + len - 4), ".xpm", 4))
 		return (1);
@@ -65,29 +65,49 @@ static int	dotxpm(char *line, t_gc **collector)
 
 void	check_color(char *line, t_file *file, t_gc **collector)
 {
-	char *path;
-	
+	char	*path;
+
 	path = ft_strtrim(line, "\n", collector);
 	if (!path)
 		print_error(10, collector);
 	if (!ft_strncmp(path, "F ", 2))
-		file->no = ft_strdup(path + 2, collector);
-	else if (!ft_strncmp(path, "C ", 2))
-		file->so = ft_strdup(path + 2, collector);
-	else
 	{
-		gc_free(collector, path);
-		return ;
+		file->floor_color = ft_strdup(path + 2, collector);
+		if (isnt_rgb(file->floor_color, collector))
+			print_error(42, collector);
 	}
-	if (isnt_rgb(line, collector))
-		print_error(42, collector);
+	else if (!ft_strncmp(path, "C ", 2))
+	{
+		file->sky_color = ft_strdup(path + 2, collector);
+		if (isnt_rgb(file->sky_color, collector))
+			print_error(5, collector);
+	}
+	gc_free(collector, path);
 }
 
 static int	isnt_rgb(char *line, t_gc **collector)
 {
-	int	len;
+	int		value;
+	char	**rgb;
+	int		i;
 
-	len = ft_strlen(line + 2);
-	if (len < 9)
+	rgb = ft_split(line, ',', collector);
+	if (!rgb)
+		print_error(10, collector);
+	i = 0;
+	while (rgb[i])
+		i++;
+	if (i != 3)
+		return (1);
+	i = 0;
+	while (rgb[i])
+	{
+		value = ft_atoi(rgb[i]);
+		if (value < 0 || value > 255)
+			return (1);
+		if (value == 0 && rgb [i][0] != '0')
+			return (1);
+		i++;
+	}
 	return (0);
 }

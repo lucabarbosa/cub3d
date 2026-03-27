@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 13:12:00 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/24 23:06:31 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/27 11:58:39 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	parse_file(char *map, t_file *file, t_gc **collector)
 	line = get_next_line(fd, collector);
 	while (line)
 	{
-		printf ("-> %s", line);
 		if (ft_strlen (line) > 1)
 		{
 			check_texture(line, file, collector);
@@ -72,10 +71,5 @@ void	parse_file(char *map, t_file *file, t_gc **collector)
 	if (!file->no || !file->so || !file->we || !file->ea)
 		print_error(4, collector);
 	if (!file->sky_color || !file->floor_color)
-		print_error(1, collector);
-	printf("\n--------------\n");
-	printf("%s\n", file->no);
-	printf("%s\n", file->so);
-	printf("%s\n", file->we);
-	printf("%s\n", file->ea);
+		print_error(6, collector);
 }

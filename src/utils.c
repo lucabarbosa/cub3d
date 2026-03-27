@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:58:58 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/24 22:59:36 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/27 11:31:27 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ void	print_error(int num, t_gc **collector)
 	if (num == 3)
 		ft_putstr_fd("Wrong texture, it must be <.xpm>.\n", 2);
 	if (num == 4)
-		ft_putstr_fd("The map must have one texture for NO, SO, WE and EA.\n", 2);
+		ft_putstr_fd("The map need have textures for NO, SO, WE, and EA.\n", 2);
+	if (num == 5)
+		ft_putendl_fd("Wrong RGB: put range between 0-255, divided by <,>.", 2);
+	if (num == 6)
+		ft_putstr_fd("The map need have color for sky and floor.\n", 2);
 	if (num == 10)
 		perror("Error: ");
 	gc_clear(collector);
