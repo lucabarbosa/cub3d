@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:58:58 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/27 11:31:27 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/27 12:01:07 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	print_error(int num, t_gc **collector)
 		ft_putendl_fd("Wrong RGB: put range between 0-255, divided by <,>.", 2);
 	if (num == 6)
 		ft_putstr_fd("The map need have color for sky and floor.\n", 2);
+	if (num == 7)
+		ft_putstr_fd("Map isn't solvable.\n", 2);
 	if (num == 10)
 		perror("Error: ");
 	gc_clear(collector);

@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 13:12:00 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/27 11:58:39 by lbento           ###   ########.fr       */
+/*   Updated: 2026/03/27 12:02:59 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ void	parse_file(char *map, t_file *file, t_gc **collector)
 		{
 			check_texture(line, file, collector);
 			check_color(line, file, collector);
-			// if (check_map(line, file, collector))
-			// 		print_error(3, collector);
+			check_map(line, file, collector);
+			// if (!solvable_map(line, file, collector))
+			// 	print_error(7, collector);
 		}
 		gc_free(collector, line);
 		line = get_next_line(fd, collector);
