@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:26 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/23 15:08:47 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/01 10:03:51 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ int	main(void)
         ft_putendl_fd("Error\nFailed to initialize MLX.", 2);
         return (1);
     }
+		//TEST:
+		engine.scene.floor_color   = color(0, 0, 255);   // azul
+		engine.scene.ceiling_color = color(255, 0, 0);   // vermelho
     player_init(&engine.player);          // <-- inicializa o player
     engine_register_hooks(&engine);
     mlx_loop_hook(engine.mlx, game_loop, &engine);  // <-- loop do jogo

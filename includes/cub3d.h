@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/23 15:08:12 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/01 10:14:47 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,18 @@
 #define MAP_NUM_COLS  15
 #define WIN_W         (MAP_NUM_COLS * TILE_SIZE)   /* 480 */
 #define WIN_H         (MAP_NUM_ROWS * TILE_SIZE)   /* 352 */
+// #define WIN_H 1024
+// #define WIN_W 720
+#define MINIMAP_SCALE  0.2f
+// no header
+extern int g_grid[MAP_NUM_ROWS][MAP_NUM_COLS];
 
+
+typedef struct s_scene
+{
+    int ceiling_color;
+    int floor_color;
+}   t_scene;
 /*
 ** t_img — representa uma imagem MLX (frame buffer ou textura)
 **
@@ -69,6 +80,7 @@ typedef struct s_img
 ** win_w/h : dimensões da janela em pixels
 ** running : quando false, o loop encerra e libera os recursos
 */
+
 typedef struct s_player
 {
   int	x;
@@ -90,6 +102,7 @@ typedef struct s_engine
 	int		win_h;
 	bool	running;
   t_player	player;
+  t_scene	scene;
 }	t_engine;
 
 /* mlx/engine_init.c */
@@ -122,3 +135,6 @@ void    draw_circle(t_img *img, int cx, int cy, int r, int color);
 void    draw_line(t_img *img, int x0, int y0, int x1, int y1, int color);
 int     color(int r, int g, int b);
 #endif
+// map/map.c
+void    minimap_render(t_img *img, t_player *p);
+void    scene_render(t_img *img, t_scene *scene);

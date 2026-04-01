@@ -6,12 +6,12 @@
 /*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 14:56:02 by fabialme          #+#    #+#             */
-/*   Updated: 2026/03/23 15:05:59 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/01 09:10:23 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 
-static int g_grid[MAP_NUM_ROWS][MAP_NUM_COLS] = {
+int g_grid[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
     {1,0,0,0,0,1,0,0,0,0,0,0,1,0,1},
