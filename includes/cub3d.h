@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/01 10:14:47 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/01 12:08:45 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,27 @@
 #define MAP_NUM_COLS  15
 #define WIN_W         (MAP_NUM_COLS * TILE_SIZE)   /* 480 */
 #define WIN_H         (MAP_NUM_ROWS * TILE_SIZE)   /* 352 */
-// #define WIN_H 1024
-// #define WIN_W 720
+#define FOV_ANGLE 66
+#define WALL_STRIP_WIDTH 1
+#define NUM_RAYS (WIN_W / WALL_STRIP_WIDTH)
 #define MINIMAP_SCALE  0.2f
 // no header
+
+//TEST:
 extern int g_grid[MAP_NUM_ROWS][MAP_NUM_COLS];
 
+typedef struct s_line
+{
+	int	x0;
+	int	y0;
+	int	x1;
+	int	y1;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+}	t_line;
 
 typedef struct s_scene
 {
@@ -130,11 +145,19 @@ int     game_loop(void *param);
 
 /* mlx/draw.c */
 void    put_pixel(t_img *img, int x, int y, int color);
-void    draw_rect(t_img *img, int x, int y, int w, int h, int color);
-void    draw_circle(t_img *img, int cx, int cy, int r, int color);
-void    draw_line(t_img *img, int x0, int y0, int x1, int y1, int color);
+// void    draw_rect(t_img *img, int x, int y, int w, int h, int color);
+
+void	draw_rect(t_img *img, int x, int y, int w, int h, int color);
+void	draw_circle_red(t_img *img, int cx, int cy, int r);
+// void    draw_circle(t_img *img, int cx, int cy, int r, int color);
+void	draw_line(t_img *img, t_line *l, int color);
 int     color(int r, int g, int b);
-#endif
 // map/map.c
 void    minimap_render(t_img *img, t_player *p);
 void    scene_render(t_img *img, t_scene *scene);
+// utils
+//
+//
+int color(int r, int g, int b);
+
+#endif

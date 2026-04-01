@@ -21,9 +21,9 @@ int	main(void)
         ft_putendl_fd("Error\nFailed to initialize MLX.", 2);
         return (1);
     }
-		//TEST:
-		engine.scene.floor_color   = color(0, 0, 255);   // azul
-		engine.scene.ceiling_color = color(255, 0, 0);   // vermelho
+    //TEST:
+    engine.scene.floor_color   = color(0, 0, 255);   // azul
+    engine.scene.ceiling_color = color(255, 0, 0);   // vermelho
     player_init(&engine.player);          // <-- inicializa o player
     engine_register_hooks(&engine);
     mlx_loop_hook(engine.mlx, game_loop, &engine);  // <-- loop do jogo

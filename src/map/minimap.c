@@ -6,7 +6,7 @@
 /*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 09:05:15 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/01 10:06:45 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/01 12:04:48 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,22 @@ void    minimap_render(t_img *img, t_player *p)
         }
         i++;
     }
-    draw_circle(img, mm(p->x), mm(p->y),
-        (int)(p->radius * MINIMAP_SCALE) + 1, color(0, 0, 255));
-    draw_line(img,
-        mm(p->x), mm(p->y),
-        (int)(mm(p->x) + cos(p->rotation_angle) * 20 * MINIMAP_SCALE),
-        (int)(mm(p->y) + sin(p->rotation_angle) * 20 * MINIMAP_SCALE),
-        color(0, 0, 255));
+    draw_circle_red(img, mm(p->x), mm(p->y),
+        (int)(p->radius * MINIMAP_SCALE) + 1);
+		t_line	line;
+		int		green;
+
+		green = color(0, 255, 0);
+		line.x0 = mm(p->x);
+		line.y0 = mm(p->y);
+		line.x1 = (int)(mm(p->x)
+				+ cos(p->rotation_angle) * 100 * MINIMAP_SCALE);
+		line.y1 = (int)(mm(p->y)
+				+ sin(p->rotation_angle) * 100 * MINIMAP_SCALE);
+		draw_line(img, &line, green);
+    // draw_line(img,
+    //     mm(p->x), mm(p->y),
+    //     (int)(mm(p->x) + cos(p->rotation_angle) * 100 * MINIMAP_SCALE),
+    //     (int)(mm(p->y) + sin(p->rotation_angle) * 100 * MINIMAP_SCALE),
+    //     color(0, 255, 0));
 }

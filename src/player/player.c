@@ -6,7 +6,7 @@
 /*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 14:54:02 by fabialme          #+#    #+#             */
-/*   Updated: 2026/03/23 15:06:32 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/01 12:04:28 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void    player_init(t_player *p)
     p->rotation_speed = 2.0 * (M_PI / 180.0);
 }
 
-/* Equivalente ao Player::update() do JS */
 void    player_update(t_player *p)
 {
     double  move_step;
@@ -42,17 +41,16 @@ void    player_update(t_player *p)
     }
 }
 
-/* Equivalente ao Player::render() do JS */
-void    player_render(t_img *img, t_player *p)
+void	player_render(t_img *img, t_player *p)
 {
-    int red;
+	int		red;
+	t_line	line;
 
-    red = color(255, 0, 0);
-    draw_circle(img, (int)p->x, (int)p->y, p->radius, red);
-    draw_line(img,
-        (int)p->x,
-        (int)p->y,
-        (int)(p->x + cos(p->rotation_angle) * 20),
-        (int)(p->y + sin(p->rotation_angle) * 20),
-        red);
+	red = color(255, 0, 0);
+	draw_circle_red(img, (int)p->x, (int)p->y, p->radius);
+	line.x0 = (int)p->x;
+	line.y0 = (int)p->y;
+	line.x1 = (int)(p->x + cos(p->rotation_angle) * 20);
+	line.y1 = (int)(p->y + sin(p->rotation_angle) * 20);
+	draw_line(img, &line, red);
 }
