@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 //REFACTOR: be a malloct array of ints
-int g_grid[MAP_NUM_ROWS][MAP_NUM_COLS] = {
+
+int g_grid[11][15] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
     {1,0,0,0,0,1,0,0,0,0,0,0,1,0,1},
@@ -25,21 +26,59 @@ int g_grid[MAP_NUM_ROWS][MAP_NUM_COLS] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 };
 
-/* Equivalente ao Map::hasWall() do JS */
-//REFACTOR: aqui provalvelmente vai usar um struct alocada
-int	map_has_wall(double x, double y)
+void    map_load_hardcoded(t_map *map)
 {
-	int	map_x;
-	int	map_y;
+    int i;
 
-	if (x < 0 || x >= WIN_W || y < 0 || y >= WIN_H)
-		return (0);
-	map_x = (int)(x / TILE_SIZE);
-	map_y = (int)(y / TILE_SIZE);
-	return (g_grid[map_y][map_x] != 0);
+    map->rows      = 11;
+    map->cols      = 15;
+    map->tile_size = 64;
+    map->grid      = malloc(sizeof(int *) * map->rows);
+    if (!map->grid)
+        return ;
+    i = 0;
+    while (i < map->rows)
+    {
+        map->grid[i] = malloc(sizeof(int) * map->cols);
+        if (!map->grid[i])
+            return ;
+        ft_memcpy(map->grid[i], g_grid[i], sizeof(int) * map->cols);
+        i++;
+    }
 }
 
-/* Equivalente ao Map::render() do JS */
+void    map_free(t_map *map)
+{
+    int i;
+
+    if (!map->grid)
+        return ;
+    i = 0;
+    while (i < map->rows)
+    {
+        free(map->grid[i]);
+        i++;
+    }
+    free(map->grid);
+    map->grid = NULL;
+}
+
+int     map_has_wall(t_map *map, double x, double y)
+{
+    int map_x;
+    int map_y;
+    int win_w;
+    int win_h;
+
+    win_w = map->cols * map->tile_size;
+    win_h = map->rows * map->tile_size;
+    if (x < 0 || x >= win_w || y < 0 || y >= win_h)
+        return (0);
+    map_x = (int)(x / map->tile_size);
+    map_y = (int)(y / map->tile_size);
+    return (map->grid[map_y][map_x] != 0);
+}
+
 void	map_render(t_img *img)
 {
 	int	tile_color;

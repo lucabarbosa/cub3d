@@ -12,19 +12,30 @@
 
 #include "../../includes/cub3d.h"
 
-void    player_init(t_player *p)
+void    player_init(t_player *p, t_map *map)
 {
-    p->x              = WIN_W / 2;
-    p->y              = WIN_H / 2;
-    p->radius         = 10;
+    p->x              = (map->cols / 2) * map->tile_size + map->tile_size / 2;
+    p->y              = (map->rows / 2) * map->tile_size + map->tile_size / 2;
+    p->radius         = 5;
     p->turn_direction = 0;
     p->walk_direction = 0;
     p->rotation_angle = 3.0 * M_PI / 2.0;
     p->move_speed     = 2.0;
     p->rotation_speed = 2.0 * (M_PI / 180.0);
 }
+// void    player_init(t_player *p)
+// {
+//     p->x              = WIN_W / 2;
+//     p->y              = WIN_H / 2;
+//     p->radius         = 10;
+//     p->turn_direction = 0;
+//     p->walk_direction = 0;
+//     p->rotation_angle = 3.0 * M_PI / 2.0;
+//     p->move_speed     = 2.0;
+//     p->rotation_speed = 2.0 * (M_PI / 180.0);
+// }
 
-void    player_update(t_player *p)
+void    player_update(t_player *p, t_map *map)
 {
     double  move_step;
     double  nx;
@@ -34,12 +45,30 @@ void    player_update(t_player *p)
     move_step = p->move_speed * p->walk_direction;
     nx = p->x + cos(p->rotation_angle) * move_step;
     ny = p->y + sin(p->rotation_angle) * move_step;
-    if (!map_has_wall(nx, ny))
+    printf("pos:(%.1f,%.1f) next:(%.1f,%.1f) wall:%d\n",
+        p->x, p->y, nx, ny, map_has_wall(map, nx, ny));
+    if (!map_has_wall(map, nx, ny))
     {
         p->x = nx;
         p->y = ny;
     }
 }
+// void    player_update(t_player *p, t_map *map)
+// {
+//     double  move_step;
+//     double  nx;
+//     double  ny;
+//
+//     p->rotation_angle += p->rotation_speed * p->turn_direction;
+//     move_step = p->move_speed * p->walk_direction;
+//     nx = p->x + cos(p->rotation_angle) * move_step;
+//     ny = p->y + sin(p->rotation_angle) * move_step;
+//     if (!map_has_wall(map, nx, ny))
+//     {
+//         p->x = nx;
+//         p->y = ny;
+//     }
+// }
 
 void	player_render(t_img *img, t_player *p)
 {

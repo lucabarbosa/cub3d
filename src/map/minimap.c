@@ -52,16 +52,16 @@ void    minimap_render(t_img *img, t_player *p)
     draw_circle_red(img, mm(p->x), mm(p->y),
         (int)(p->radius * MINIMAP_SCALE) + 1);
 		t_line	line;
-		int		green;
+		int		blue;
 
-		green = color(0, 255, 0);
+		blue = color(0, 0, 255);
 		line.x0 = mm(p->x);
 		line.y0 = mm(p->y);
 		line.x1 = (int)(mm(p->x)
 				+ cos(p->rotation_angle) * 100 * MINIMAP_SCALE);
 		line.y1 = (int)(mm(p->y)
 				+ sin(p->rotation_angle) * 100 * MINIMAP_SCALE);
-		draw_line(img, &line, green);
+		draw_line(img, &line, blue);
     // draw_line(img,
     //     mm(p->x), mm(p->y),
     //     (int)(mm(p->x) + cos(p->rotation_angle) * 100 * MINIMAP_SCALE),

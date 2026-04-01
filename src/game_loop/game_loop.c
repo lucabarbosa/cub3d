@@ -25,8 +25,8 @@ int game_loop(void *param)
     t_engine *e;
 
     e = (t_engine *)param;
-    scene_render(&e->frame, &e->scene);
-    player_update(&e->player);
+    scene_render(&e->frame, &e->map);
+    player_update(&e->player, &e->map);
     minimap_render(&e->frame, &e->player);
     mlx_put_image_to_window(e->mlx, e->win, e->frame.img, 0, 0);
     return (0);

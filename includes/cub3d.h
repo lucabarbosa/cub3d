@@ -29,15 +29,13 @@
 # include <X11/X.h>
 # include <stdint.h>
 
-// # define WIN_W		1280
-// # define WIN_H		720
+# define WIN_W		1024
+# define WIN_H		720
 # define WIN_TITLE	"cub3D"
 
-#define TILE_SIZE     32
+#define TILE_SIZE     64
 #define MAP_NUM_ROWS  11
 #define MAP_NUM_COLS  15
-#define WIN_W         (MAP_NUM_COLS * TILE_SIZE)   /* 480 */
-#define WIN_H         (MAP_NUM_ROWS * TILE_SIZE)   /* 352 */
 #define FOV_ANGLE 66
 #define WALL_STRIP_WIDTH 1
 #define NUM_RAYS (WIN_W / WALL_STRIP_WIDTH)
@@ -46,6 +44,16 @@
 
 //TEST:
 extern int g_grid[MAP_NUM_ROWS][MAP_NUM_COLS];
+
+typedef struct s_map
+{
+    int **grid;        // alocado dinamicamente
+    int rows;
+    int cols;
+    int tile_size;
+    int floor_color;
+    int ceiling_color;
+}   t_map;
 
 typedef struct s_line
 {
@@ -98,15 +106,15 @@ typedef struct s_img
 
 typedef struct s_player
 {
-  int	x;
-  int	y;
-  int	radius;
-  int	turn_direction;
-  int	walk_direction;
-  double	rotation_angle;
-  double	move_speed;
-  double	rotation_speed;
-}	t_player;
+    double  x;
+    double  y;
+    int     radius;
+    int     turn_direction;
+    int     walk_direction;
+    double  rotation_angle;
+    double  move_speed;
+    double  rotation_speed;
+}   t_player;
 
 typedef struct s_engine
 {
@@ -118,7 +126,29 @@ typedef struct s_engine
 	bool	running;
   t_player	player;
   t_scene	scene;
+  t_map map;
 }	t_engine;
+
+typedef struct s_ray
+{
+    double ray_angle;
+
+    double xintercept;
+    double yintercept;
+
+    double xstep;
+    double ystep;
+
+    int    is_facing_right;
+    int    is_facing_left;
+    int    is_facing_up;
+    int    is_facing_down;
+
+    int    found_horz_wall_hit;
+    double horz_wall_hit_x;
+    double horz_wall_hit_y;
+
+} t_ray;
 
 /* mlx/engine_init.c */
 int		engine_init(t_engine *e, int w, int h, const char *title);
@@ -132,13 +162,15 @@ int		on_destroy(void *param);
 
 
 /* player/player.c */
-void    player_init(t_player *p);
-void    player_update(t_player *p);
+void    player_init(t_player *p, t_map *map);
 void    player_render(t_img *img, t_player *p);
+void    player_update(t_player *p, t_map *map);
 
 /* map/map.c */
-int     map_has_wall(double x, double y);
+int     map_has_wall(t_map *map, double x, double y);
 void    map_render(t_img *img);
+void    map_load_hardcoded(t_map *map);
+void    map_free(t_map *map);
 
 /* game_loop.c */
 int     game_loop(void *param);
@@ -154,10 +186,9 @@ void	draw_line(t_img *img, t_line *l, int color);
 int     color(int r, int g, int b);
 // map/map.c
 void    minimap_render(t_img *img, t_player *p);
-void    scene_render(t_img *img, t_scene *scene);
-// utils
-//
-//
-int color(int r, int g, int b);
+// void    scene_render(t_img *img, t_scene *scene);
 
+void    scene_render(t_img *img, t_map *map);
+// utils
+int color(int r, int g, int b);
 #endif

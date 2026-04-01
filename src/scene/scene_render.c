@@ -12,10 +12,8 @@
 
 #include "../../includes/cub3d.h"
 
-void    scene_render(t_img *img, t_scene *s)
+void    scene_render(t_img *img, t_map *map)
 {
-    // metade superior = céu
-    draw_rect(img, 0, 0, WIN_W, WIN_H / 2, s->ceiling_color);
-    // metade inferior = chão
-    draw_rect(img, 0, WIN_H / 2, WIN_W, WIN_H / 2, s->floor_color);
+    draw_rect(img, 0, 0, WIN_W, WIN_H / 2, map->ceiling_color);
+    draw_rect(img, 0, WIN_H / 2, WIN_W, WIN_H / 2, map->floor_color);
 }
