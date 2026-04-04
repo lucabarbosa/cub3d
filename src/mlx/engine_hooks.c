@@ -24,6 +24,8 @@ int	on_destroy(void *param)
 
 	engine = (t_engine *)param;
 	engine_shutdown(engine);
+	//REFACTOR: possivelmente terei que mudar isso 
+	map_free(&engine->map);
 	exit(0);
 }
 //TODO: aqui vai ser o register dos movimentos mais tarde

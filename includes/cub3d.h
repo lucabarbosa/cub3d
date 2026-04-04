@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/01 12:08:45 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/04 11:48:43 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 # include <stdint.h>
+#include <float.h>
 
 # define WIN_W		1024
 # define WIN_H		720
@@ -53,6 +54,10 @@ typedef struct s_map
     int tile_size;
     int floor_color;
     int ceiling_color;
+    char *tex_no;
+    char *tex_so;
+    char	*tex_we;
+    char	*tex_ea;
 }   t_map;
 
 typedef struct s_line
@@ -116,6 +121,22 @@ typedef struct s_player
     double  rotation_speed;
 }   t_player;
 
+typedef struct s_ray
+{
+    double  ray_angle;
+
+    int     is_facing_right;
+    int     is_facing_left;
+    int     is_facing_up;
+    int     is_facing_down;
+
+    double  wall_hit_x;       // resultado final — onde o raio bateu
+    double  wall_hit_y;
+    double  distance;         // distância até a parede
+    double  wall_x;           // fração 0.0~1.0 dentro do tile (para textura)
+    int     was_hit_vertical; // bateu em parede vertical ou horizontal?
+}   t_ray;
+
 typedef struct s_engine
 {
 	void	*mlx;
@@ -127,28 +148,52 @@ typedef struct s_engine
   t_player	player;
   t_scene	scene;
   t_map map;
+  t_ray rays[NUM_RAYS];
 }	t_engine;
 
-typedef struct s_ray
+
+typedef struct s_horz
 {
-    double ray_angle;
+    double  hit_x;
+    double  hit_y;
+    int     found;
+}   t_horz;
 
-    double xintercept;
-    double yintercept;
+typedef struct s_vert
+{
+    double  hit_x;
+    double  hit_y;
+    int     found;
+}   t_vert;
 
-    double xstep;
-    double ystep;
+// em t_engine, adicionar o array de raios:
+// t_ray   rays[NUM_RAYS];
 
-    int    is_facing_right;
-    int    is_facing_left;
-    int    is_facing_up;
-    int    is_facing_down;
-
-    int    found_horz_wall_hit;
-    double horz_wall_hit_x;
-    double horz_wall_hit_y;
-
-} t_ray;
+// protótipos novos:
+void    init_ray(t_ray *ray, double ray_angle);
+void    cast_ray(t_ray *ray, t_player *p, t_map *map);
+void    cast_all_rays(t_engine *e);
+void    rays_render(t_img *img, t_engine *e);
+// typedef struct s_ray
+// {
+//     double ray_angle;
+//
+//     double xintercept;
+//     double yintercept;
+//
+//     double xstep;
+//     double ystep;
+//
+//     int    is_facing_right;
+//     int    is_facing_left;
+//     int    is_facing_up;
+//     int    is_facing_down;
+//
+//     int    found_horz_wall_hit;
+//     double horz_wall_hit_x;
+//     double horz_wall_hit_y;
+//
+// } t_ray;
 
 /* mlx/engine_init.c */
 int		engine_init(t_engine *e, int w, int h, const char *title);
@@ -191,4 +236,6 @@ void    minimap_render(t_img *img, t_player *p);
 void    scene_render(t_img *img, t_map *map);
 // utils
 int color(int r, int g, int b);
+void    render_walls(t_engine *e);
+
 #endif
