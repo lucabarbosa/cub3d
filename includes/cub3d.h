@@ -149,6 +149,10 @@ typedef struct s_engine
   t_scene	scene;
   t_map map;
   t_ray rays[NUM_RAYS];
+  t_img   tex_no;
+  t_img   tex_so;
+  t_img   tex_we;
+  t_img   tex_ea;
 }	t_engine;
 
 
@@ -238,4 +242,9 @@ void    scene_render(t_img *img, t_map *map);
 int color(int r, int g, int b);
 void    render_walls(t_engine *e);
 
+// void    load_texture(t_engine *e, t_img *tex, char *path);
+//
+int     get_tex_color(t_img *tex, int x, int y);
+int     load_texture(t_engine *e, t_img *tex, char *path);
+t_img   *get_texture(t_engine *e, t_ray *ray);
 #endif

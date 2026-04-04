@@ -45,6 +45,10 @@ void    map_load_hardcoded(t_map *map)
         ft_memcpy(map->grid[i], g_grid[i], sizeof(int) * map->cols);
         i++;
     }
+		map->tex_no = "assets/textures/north.xpm";
+		map->tex_so = "assets/textures/south.xpm";
+		map->tex_ea = "assets/textures/east.xpm";
+		map->tex_we = "assets/textures/west.xpm";
 }
 
 void    map_free(t_map *map)

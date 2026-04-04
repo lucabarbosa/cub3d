@@ -27,10 +27,10 @@ int main(void)
 		//TEST: hardcoded map floor color
     engine.map.ceiling_color = color(0, 255, 0);
     engine.map.floor_color   = color(255, 0, 0);
-		// load_texture(&engine, &engine.tex_no, "./textures/north.xpm");
-		// load_texture(&engine, &engine.tex_so, "./textures/south.xpm");
-		// load_texture(&engine, &engine.tex_we, "./textures/west.xpm");
-		// load_texture(&engine, &engine.tex_ea, "./textures/east.xpm");
+		load_texture(&engine, &engine.tex_no, engine.map.tex_no);
+		load_texture(&engine, &engine.tex_so, engine.map.tex_so);
+		load_texture(&engine, &engine.tex_we, engine.map.tex_we);
+		load_texture(&engine, &engine.tex_ea, engine.map.tex_ea);
 		//REFACTOR:
     player_init(&engine.player, &engine.map);
     engine_register_hooks(&engine);
