@@ -24,14 +24,7 @@ int main(void)
         map_free(&engine.map);
         return (1);
     }
-		//TEST: hardcoded map floor color
-    engine.map.ceiling_color = color(0, 255, 0);
-    engine.map.floor_color   = color(255, 0, 0);
-		load_texture(&engine, &engine.tex_no, engine.map.tex_no);
-		load_texture(&engine, &engine.tex_so, engine.map.tex_so);
-		load_texture(&engine, &engine.tex_we, engine.map.tex_we);
-		load_texture(&engine, &engine.tex_ea, engine.map.tex_ea);
-		//REFACTOR:
+		load_all_textures(&engine);
     player_init(&engine.player, &engine.map);
     engine_register_hooks(&engine);
     mlx_loop_hook(engine.mlx, game_loop, &engine);
