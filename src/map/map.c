@@ -26,6 +26,7 @@ int g_grid[11][15] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 };
 
+//TEST:
 void    map_load_hardcoded(t_map *map)
 {
     int i;
@@ -49,6 +50,10 @@ void    map_load_hardcoded(t_map *map)
 		map->tex_so = "assets/textures/south.xpm";
 		map->tex_ea = "assets/textures/east.xpm";
 		map->tex_we = "assets/textures/west.xpm";
+
+		//TEST: hardcoded map floor color
+    map->ceiling_color = color(0, 255, 0);
+    map->floor_color   = color(255, 0, 0);
 }
 
 void    map_free(t_map *map)

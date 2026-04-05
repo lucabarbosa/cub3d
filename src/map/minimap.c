@@ -16,6 +16,7 @@ static int mm(double v)
 {
     return ((int)(v * MINIMAP_SCALE));
 }
+
 void    minimap_render(t_img *img, t_player *p)
 {
     int i;
@@ -62,9 +63,4 @@ void    minimap_render(t_img *img, t_player *p)
 		line.y1 = (int)(mm(p->y)
 				+ sin(p->rotation_angle) * 100 * MINIMAP_SCALE);
 		draw_line(img, &line, blue);
-    // draw_line(img,
-    //     mm(p->x), mm(p->y),
-    //     (int)(mm(p->x) + cos(p->rotation_angle) * 100 * MINIMAP_SCALE),
-    //     (int)(mm(p->y) + sin(p->rotation_angle) * 100 * MINIMAP_SCALE),
-    //     color(0, 255, 0));
 }
