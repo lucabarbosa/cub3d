@@ -109,6 +109,15 @@ typedef struct s_img
 ** running : quando false, o loop encerra e libera os recursos
 */
 
+typedef struct s_rect
+{
+  int	x;
+  int	y;
+  int	w;
+  int	h;
+  int	color;
+}	t_rect;
+
 typedef struct s_player
 {
     double  x;
@@ -178,26 +187,6 @@ void    init_ray(t_ray *ray, double ray_angle);
 void    cast_ray(t_ray *ray, t_player *p, t_map *map);
 void    cast_all_rays(t_engine *e);
 void    rays_render(t_img *img, t_engine *e);
-// typedef struct s_ray
-// {
-//     double ray_angle;
-//
-//     double xintercept;
-//     double yintercept;
-//
-//     double xstep;
-//     double ystep;
-//
-//     int    is_facing_right;
-//     int    is_facing_left;
-//     int    is_facing_up;
-//     int    is_facing_down;
-//
-//     int    found_horz_wall_hit;
-//     double horz_wall_hit_x;
-//     double horz_wall_hit_y;
-//
-// } t_ray;
 
 /* mlx/engine_init.c */
 int		engine_init(t_engine *e, int w, int h, const char *title);
@@ -228,7 +217,8 @@ int     game_loop(void *param);
 void    put_pixel(t_img *img, int x, int y, int color);
 // void    draw_rect(t_img *img, int x, int y, int w, int h, int color);
 
-void	draw_rect(t_img *img, int x, int y, int w, int h, int color);
+void	draw_rect(t_img *img, t_rect rect);
+// void	draw_rect(t_img *img, int x, int y, int w, int h, int color);
 void	draw_circle_red(t_img *img, int cx, int cy, int r);
 // void    draw_circle(t_img *img, int cx, int cy, int r, int color);
 void	draw_line(t_img *img, t_line *l, int color);
@@ -242,9 +232,9 @@ void    scene_render(t_img *img, t_map *map);
 int color(int r, int g, int b);
 void    render_walls(t_engine *e);
 
-// void    load_texture(t_engine *e, t_img *tex, char *path);
-//
 int     get_tex_color(t_img *tex, int x, int y);
 int     load_texture(t_engine *e, t_img *tex, char *path);
 t_img   *get_texture(t_engine *e, t_ray *ray);
+
+void load_all_textures(t_engine *engine);
 #endif
