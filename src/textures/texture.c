@@ -15,21 +15,12 @@ int load_texture(t_engine *e, t_img *tex, char *path)
 {
     if (!e || !tex || !path)
         return (0);
-		int fd = open(path, O_RDONLY);
-		if (fd < 0)
-		{
-				perror("open");
-				printf("failed path: %s\n", path);
-		}
-		else
-			close(fd);
     tex->img = mlx_xpm_file_to_image(e->mlx, path, &tex->w, &tex->h);
     if (!tex->img)
     {
         ft_putendl_fd("Error\nFailed to load texture.", 2);
         return (0);
     }
-
     tex->addr = mlx_get_data_addr(tex->img,
             &tex->bits_per_pixel,
             &tex->line_length,
@@ -40,7 +31,6 @@ int load_texture(t_engine *e, t_img *tex, char *path)
         mlx_destroy_image(e->mlx, tex->img);
         return (0);
     }
-
     return (1);
 }
 // int     load_texture(t_engine *e, t_img *tex, char *path)
@@ -91,4 +81,12 @@ t_img   *get_texture(t_engine *e, t_ray *ray)
     if (!ray->was_hit_vertical && ray->is_facing_up)
         return (&e->tex_no);
     return (&e->tex_so);
+}
+
+void load_all_textures(t_engine *engine)
+{
+	load_texture(engine, &engine->tex_no, engine->map.tex_no);
+	load_texture(engine, &engine->tex_so, engine->map.tex_so);
+	load_texture(engine, &engine->tex_we, engine->map.tex_we);
+	load_texture(engine, &engine->tex_ea, engine->map.tex_ea);
 }
