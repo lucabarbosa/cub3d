@@ -6,7 +6,7 @@
 /*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 14:56:02 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/06 11:46:51 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/06 12:11:05 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
@@ -27,6 +27,7 @@ int g_grid[11][15] = {
 };
 
 //TEST:
+//NOTE: Luca, usar essa funcao para criar sua funcao do parser
 void    map_load_hardcoded(t_map *map)
 {
 	int	i;
