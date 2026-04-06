@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/06 11:21:08 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/06 12:02:15 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ typedef struct s_player
     double  rotation_angle;
     double  move_speed;
     double  rotation_speed;
+    double strafe_direction;
 }   t_player;
 
 typedef struct s_ray

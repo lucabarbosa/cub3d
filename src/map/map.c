@@ -6,12 +6,12 @@
 /*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 14:56:02 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/01 12:00:31 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:46:51 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../../includes/cub3d.h"
 //REFACTOR: be a malloct array of ints
-
+//TEST:
 int g_grid[11][15] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
@@ -29,68 +29,68 @@ int g_grid[11][15] = {
 //TEST:
 void    map_load_hardcoded(t_map *map)
 {
-    int i;
+	int	i;
 
-    map->rows      = 11;
-    map->cols      = 15;
-    map->tile_size = 64;
-    map->grid      = malloc(sizeof(int *) * map->rows);
-    if (!map->grid)
-        return ;
-    i = 0;
-    while (i < map->rows)
-    {
-        map->grid[i] = malloc(sizeof(int) * map->cols);
-        if (!map->grid[i])
-            return ;
-        ft_memcpy(map->grid[i], g_grid[i], sizeof(int) * map->cols);
-        i++;
-    }
-		map->tex_no = "assets/textures/north.xpm";
-		map->tex_so = "assets/textures/south.xpm";
-		map->tex_ea = "assets/textures/east.xpm";
-		map->tex_we = "assets/textures/west.xpm";
-		map->player_x = 2;
-		map->player_y = 5;
-		map->player_dir = 'S';
-		//NOTE: Luca, na hora que achar o player_dir, setar o valor no mapa para um tile vazio
-		//com o valor 0, substituir a letra pelo char 0
+	map->rows      = 11;
+	map->cols      = 15;
+	map->tile_size = 64;
+	map->grid      = malloc(sizeof(int *) * map->rows);
+	if (!map->grid)
+			return ;
+	i = 0;
+	while (i < map->rows)
+	{
+			map->grid[i] = malloc(sizeof(int) * map->cols);
+			if (!map->grid[i])
+					return ;
+			ft_memcpy(map->grid[i], g_grid[i], sizeof(int) * map->cols);
+			i++;
+	}
+	map->tex_no = "assets/textures/north.xpm";
+	map->tex_so = "assets/textures/south.xpm";
+	map->tex_ea = "assets/textures/east.xpm";
+	map->tex_we = "assets/textures/west.xpm";
+	map->player_x = 2;
+	map->player_y = 5;
+	map->player_dir = 'S';
+	//NOTE: Luca, na hora que achar o player_dir, setar o valor no mapa para um tile vazio
+	//com o valor 0, substituir a letra pelo char 0
 
-		//TEST: hardcoded map floor color
-    map->ceiling_color = color(0, 255, 0);
-    map->floor_color   = color(255, 0, 0);
+	//TEST: hardcoded map floor color
+	map->ceiling_color = color(0, 255, 0);
+	map->floor_color = color(255, 0, 0);
 }
 
-void    map_free(t_map *map)
+void	map_free(t_map *map)
 {
-    int i;
+	int	i;
 
-    if (!map->grid)
-        return ;
-    i = 0;
-    while (i < map->rows)
-    {
-        free(map->grid[i]);
-        i++;
-    }
-    free(map->grid);
-    map->grid = NULL;
+	if (!map->grid)
+		return ;
+	i = 0;
+	while (i < map->rows)
+	{
+		free(map->grid[i]);
+		i++;
+	}
+	free(map->grid);
+	map->grid = NULL;
 }
 
 int     map_has_wall(t_map *map, double x, double y)
 {
-    int map_x;
-    int map_y;
-    int win_w;
-    int win_h;
+	int	map_x;
+	int	map_y;
+	int	win_w;
+	int	win_h;
 
-    win_w = map->cols * map->tile_size;
-    win_h = map->rows * map->tile_size;
-    if (x < 0 || x >= win_w || y < 0 || y >= win_h)
-        return (0);
-    map_x = (int)(x / map->tile_size);
-    map_y = (int)(y / map->tile_size);
-    return (map->grid[map_y][map_x] != 0);
+	win_w = map->cols * map->tile_size;
+	win_h = map->rows * map->tile_size;
+	if (x < 0 || x >= win_w || y < 0 || y >= win_h)
+		return (0);
+	map_x = (int)(x / map->tile_size);
+	map_y = (int)(y / map->tile_size);
+	return (map->grid[map_y][map_x] != 0);
 }
 
 void	map_render(t_img *img)

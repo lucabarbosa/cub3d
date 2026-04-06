@@ -6,7 +6,7 @@
 /*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:29:47 by fabialme          #+#    #+#             */
-/*   Updated: 2026/03/23 15:10:13 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/06 12:04:05 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,57 @@ int	on_destroy(void *param)
 }
 //TODO: aqui vai ser o register dos movimentos mais tarde
 //
-int	key_handler(int keysym, void *param)
+// int	key_handler(int keysym, void *param)
+// {
+//     t_engine *e = (t_engine *)param;
+//
+//     if (keysym == XK_Escape)
+//         on_destroy(e);
+//     if (keysym == XK_Left)  e->player.turn_direction = -1;
+//     if (keysym == XK_Right) e->player.turn_direction =  1;
+//     if (keysym == XK_Up)    e->player.walk_direction =  1;
+//     if (keysym == XK_Down)  e->player.walk_direction = -1;
+//     return (0);
+// }
+
+int key_handler(int keysym, void *param)
+{
+	t_engine *e = (t_engine *)param;
+
+	if (keysym == XK_Escape)
+		on_destroy(e);
+	if (keysym == XK_Left)  e->player.turn_direction = -1;
+	if (keysym == XK_Right) e->player.turn_direction =  1;
+	if (keysym == XK_w) e->player.walk_direction =  1;
+	if (keysym == XK_s) e->player.walk_direction = -1;
+	if (keysym == XK_a) e->player.strafe_direction = -1;
+	if (keysym == XK_d) e->player.strafe_direction =  1;
+	return (0);
+}
+
+int key_release(int keysym, void *param)
 {
     t_engine *e = (t_engine *)param;
 
-    if (keysym == XK_Escape)
-        on_destroy(e);
-    if (keysym == XK_Left)  e->player.turn_direction = -1;
-    if (keysym == XK_Right) e->player.turn_direction =  1;
-    if (keysym == XK_Up)    e->player.walk_direction =  1;
-    if (keysym == XK_Down)  e->player.walk_direction = -1;
+    if (keysym == XK_Left || keysym == XK_Right)
+        e->player.turn_direction = 0;
+
+    if (keysym == XK_w || keysym == XK_s)
+        e->player.walk_direction = 0;
+
+    if (keysym == XK_a || keysym == XK_d)
+        e->player.strafe_direction = 0;
+
     return (0);
 }
-
-int	key_release(int keysym, void *param)
-{
-    t_engine *e = (t_engine *)param;
-
-    if (keysym == XK_Left  || keysym == XK_Right) e->player.turn_direction = 0;
-    if (keysym == XK_Up    || keysym == XK_Down)  e->player.walk_direction = 0;
-    return (0);
-}
+// int	key_release(int keysym, void *param)
+// {
+//     t_engine *e = (t_engine *)param;
+//
+//     if (keysym == XK_Left  || keysym == XK_Right) e->player.turn_direction = 0;
+//     if (keysym == XK_Up    || keysym == XK_Down)  e->player.walk_direction = 0;
+//     return (0);
+// }
 /*
 ** engine_register_hooks — registra os callbacks de evento na MLX
 **
