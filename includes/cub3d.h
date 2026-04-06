@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/04 11:48:43 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/06 11:21:08 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,16 @@ typedef struct s_vert
 // t_ray   rays[NUM_RAYS];
 
 // protótipos novos:
+double   normalize_angle(double angle);
+double   dist_points(double x1, double y1, double x2, double y2);
+//horizontal
+void get_horz_step(t_ray *ray, double *xstep, double *ystep);
+void cast_horizontal(t_ray *ray, t_player *p, t_map *map, t_horz *h);
+void set_horz_result(t_player *p, t_horz *h, double *hd);
+//vertical
+void get_vert_step(t_ray *ray, double *xstep, double *ystep);
+void cast_vertical(t_ray *ray, t_player *p, t_map *map, t_vert *v);
+void set_vert_result(t_player *p, t_vert *v, double *vd);
 void    init_ray(t_ray *ray, double ray_angle);
 void    cast_ray(t_ray *ray, t_player *p, t_map *map);
 void    cast_all_rays(t_engine *e);
