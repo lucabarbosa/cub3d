@@ -50,6 +50,11 @@ void    map_load_hardcoded(t_map *map)
 		map->tex_so = "assets/textures/south.xpm";
 		map->tex_ea = "assets/textures/east.xpm";
 		map->tex_we = "assets/textures/west.xpm";
+		map->player_x = 2;
+		map->player_y = 5;
+		map->player_dir = 'S';
+		//NOTE: Luca, na hora que achar o player_dir, setar o valor no mapa para um tile vazio
+		//com o valor 0, substituir a letra pelo char 0
 
 		//TEST: hardcoded map floor color
     map->ceiling_color = color(0, 255, 0);
@@ -105,12 +110,12 @@ void	map_render(t_img *img)
 			tx = j * TILE_SIZE;
 			ty = i * TILE_SIZE;
 			if (g_grid[i][j] == 1)
-				tile_color = color(34, 34, 34);
+				tile_color = color(255, 255, 0);
 			else
 				tile_color = color(255, 255, 255);
 			draw_rect(img, tx, ty, TILE_SIZE, TILE_SIZE, tile_color);
-			draw_rect(img, tx, ty, TILE_SIZE, 1, color(34, 34, 51));
-			draw_rect(img, tx, ty, 1, TILE_SIZE, color(34, 34, 51));
+			// draw_rect(img, tx, ty, TILE_SIZE, 1, color(34, 34, 51));
+			// draw_rect(img, tx, ty, 1, TILE_SIZE, color(34, 34, 51));
 			j++;
 		}
 		i++;

@@ -18,7 +18,7 @@ void	draw_circle_red(t_img *img, int cx, int cy, int r)
 	int	x;
 	int	y;
 
-	red = color(255,0,0);
+	red = color(255, 0, 0);
 	y = -r;
 	while (y <= r)
 	{

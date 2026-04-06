@@ -42,9 +42,9 @@ void    minimap_render(t_img *img, t_player *p)
             mh = ny - ty;
             if (g_grid[i][j] == 1)
             {
-                draw_rect(img, tx, ty, mw, mh, color(34, 34, 34));
-                draw_rect(img, tx, ty, mw, 1,  color(34, 34, 51));
-                draw_rect(img, tx, ty, 1,  mh, color(34, 34, 51));
+                draw_rect(img, tx, ty, mw, mh, color(0, 0, 0));
+                // draw_rect(img, tx, ty, mw, 1,  color(0, 255, 0));
+                // draw_rect(img, tx, ty, 1,  mh, color(0, 0, 255));
             }
             j++;
         }

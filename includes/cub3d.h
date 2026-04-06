@@ -58,6 +58,9 @@ typedef struct s_map
     char *tex_so;
     char	*tex_we;
     char	*tex_ea;
+    int     player_x;    // coluna onde achou N/S/E/W
+    int     player_y;    // linha onde achou N/S/E/W
+    char    player_dir;  // 'N', 'S', 'E' ou 'W'
 }   t_map;
 
 typedef struct s_line
@@ -217,8 +220,8 @@ int     game_loop(void *param);
 void    put_pixel(t_img *img, int x, int y, int color);
 // void    draw_rect(t_img *img, int x, int y, int w, int h, int color);
 
-void	draw_rect(t_img *img, t_rect rect);
-// void	draw_rect(t_img *img, int x, int y, int w, int h, int color);
+// void	draw_rect(t_img *img, t_rect rect);
+void	draw_rect(t_img *img, int x, int y, int w, int h, int color);
 void	draw_circle_red(t_img *img, int cx, int cy, int r);
 // void    draw_circle(t_img *img, int cx, int cy, int r, int color);
 void	draw_line(t_img *img, t_line *l, int color);

@@ -12,18 +12,28 @@
 
 #include "../../includes/cub3d.h"
 
+static void set_rotation_angle(t_player *p, char dir)
+{
+    if (dir == 'N')
+        p->rotation_angle = 3.0 * M_PI / 2.0;
+    else if (dir == 'S')
+        p->rotation_angle = M_PI / 2.0;
+    else if (dir == 'E')
+        p->rotation_angle = 0.0;
+    else if (dir == 'W')
+        p->rotation_angle = M_PI;
+}
+
 void    player_init(t_player *p, t_map *map)
 {
-	//REFACTOR: x e y vai ser de acordo com a coordenada passada no mapa;
-    p->x              = (map->cols / 2) * map->tile_size + map->tile_size / 2;
-    p->y              = (map->rows / 2) * map->tile_size + map->tile_size / 2;
-    p->radius         = 5;
+    p->x = map->player_x * map->tile_size + map->tile_size / 2;
+    p->y = map->player_y * map->tile_size + map->tile_size / 2;
+    p->radius = 5;
     p->turn_direction = 0;
     p->walk_direction = 0;
-		//REFACTOR: aqui vai ser de acordo com a letra do mapa
-    p->rotation_angle = 3.0 * M_PI / 2.0;
-    p->move_speed     = 2.0;
+    p->move_speed = 2.0;
     p->rotation_speed = 2.0 * (M_PI / 180.0);
+    set_rotation_angle(p, map->player_dir);
 }
 
 void    player_update(t_player *p, t_map *map)
