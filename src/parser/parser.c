@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 13:12:00 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/06 01:42:19 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/06 01:58:03 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ static int	is_map_line(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] == ' ')
-		i++;
+	i = skip_space_tab(line, i);
 	if (line[i] == '1' || line[i] == '0')
 		return (1);
 	return (0);
