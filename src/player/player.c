@@ -6,7 +6,7 @@
 /*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 14:54:02 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/06 12:07:29 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/06 12:08:57 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,6 @@ void    player_init(t_player *p, t_map *map)
     set_rotation_angle(p, map->player_dir);
 }
 
-// void    player_update(t_player *p, t_map *map)
-// {
-//     double  move_step;
-//     double  nx;
-//     double  ny;
-//
-//     p->rotation_angle += p->rotation_speed * p->turn_direction;
-//     move_step = p->move_speed * p->walk_direction;
-//     nx = p->x + cos(p->rotation_angle) * move_step;
-//     ny = p->y + sin(p->rotation_angle) * move_step;
-//     if (!map_has_wall(map, nx, ny))
-//     {
-//         p->x = nx;
-//         p->y = ny;
-//     }
-// }
 void player_update(t_player *p, t_map *map)
 {
     double move_step;
