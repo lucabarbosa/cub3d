@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:26 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/24 22:14:17 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/06 02:27:00 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ static void	init_cub3d(t_file *file)
 	file->ea = NULL;
 	file->sky_color = NULL;
 	file->floor_color = NULL;
+	file->player = NULL;
+	file->player_row = 0;
+	file->player_col = 0;
 	file->map = NULL;
 }
 

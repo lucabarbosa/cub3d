@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/24 21:43:17 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/06 02:24:47 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ typedef struct s_file
 	char	*ea;
 	char	*sky_color;
 	char	*floor_color;
+	char	*player;
+	int		player_row;
+	int		player_col;
 	char	**map;
 }	t_file;
 
