@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:58:58 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/27 12:01:07 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/06 00:11:57 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ void	print_error(int num, t_gc **collector)
 	if (num == 6)
 		ft_putstr_fd("The map need have color for sky and floor.\n", 2);
 	if (num == 7)
-		ft_putstr_fd("Map isn't solvable.\n", 2);
+		ft_putstr_fd("Map missing 0 - 1, or one N, S, E, W.\n", 2);
+	if (num == 8)
+		ft_putstr_fd("The map have more than 1 player.\n", 2);
+	if (num == 9)
+		ft_putstr_fd("Map isn't surrounded by walls.\n", 2);
 	if (num == 10)
 		perror("Error: ");
 	gc_clear(collector);

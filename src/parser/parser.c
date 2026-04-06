@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 13:12:00 by lbento            #+#    #+#             */
-/*   Updated: 2026/03/27 12:02:59 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/06 01:42:19 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,63 +14,86 @@
 #include "../../includes/cub3d.h"
 
 void		parsing(char *map, t_file *file, t_gc **collector);
-void		parse_file(char *map, t_file *file, t_gc **collector);
-static int	dotcub(char *map, t_gc **collector);
+void		parse_file(int fd, t_file *file, t_gc **collector);
+void		check_map(char *line, t_file *file, t_gc **collector);
+static int	is_map_line(char *line);
 
 void	parsing(char *map, t_file *file, t_gc **collector)
 {
+	int	fd;
+
 	if (dotcub(map, collector))
 		print_error (1, collector);
-	parse_file(map, file, collector);
-}
-
-static int	dotcub(char *map, t_gc **collector)
-{
-	int	fd;
-	int	len;
-
-	len = ft_strlen(map);
-	if (len == 0)
-		return (1);
-	if (len < 5)
-		return (1);
-	if (ft_strcmp((map + len - 4), ".cub") != 0)
-		return (1);
-	fd = open(map, __O_DIRECTORY);
-	if (fd != -1)
-	{
-		ft_putstr_fd("The map can't be a directory.\n", 2);
-		gc_clear(collector);
-		exit (1);
-	}
-	return (0);
-}
-
-void	parse_file(char *map, t_file *file, t_gc **collector)
-{
-	int		fd;
-	char	*line;
-
 	fd = open(map, O_RDONLY);
 	if (fd < 0)
 		print_error(2, NULL);
+	parse_file(fd, file, collector);
+	close(fd);
+	validate_map(file, collector);
+}
+
+void	parse_file(int fd, t_file *file, t_gc **collector)
+{
+	char	*line;
+	int		is_map;
+
+	is_map = 0;
 	line = get_next_line(fd, collector);
 	while (line)
 	{
-		if (ft_strlen (line) > 1)
+		if (is_map == 0)
 		{
-			check_texture(line, file, collector);
-			check_color(line, file, collector);
-			check_map(line, file, collector);
-			// if (!solvable_map(line, file, collector))
-			// 	print_error(7, collector);
+			if (ft_strlen(line) > 1)
+			{
+				check_texture(line, file, collector);
+				check_color(line, file, collector);
+			}
+			if (is_map_line(line))
+				is_map = 1;
 		}
+		if (is_map == 1)
+			check_map(line, file, collector);
 		gc_free(collector, line);
 		line = get_next_line(fd, collector);
 	}
-	close (fd);
-	if (!file->no || !file->so || !file->we || !file->ea)
-		print_error(4, collector);
-	if (!file->sky_color || !file->floor_color)
-		print_error(6, collector);
+}
+
+static int	is_map_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] == ' ')
+		i++;
+	if (line[i] == '1' || line[i] == '0')
+		return (1);
+	return (0);
+}
+
+void	check_map(char *line, t_file *file, t_gc **collector)
+{
+	int		i;
+	char	**new_map;
+	char	**old_map;
+
+	i = 0;
+	old_map = file->map;
+	if (old_map)
+		while (old_map[i])
+			i++;
+	new_map = gc_malloc(collector, sizeof(char *) * (i + 2));
+	if (!new_map)
+		print_error(10, collector);
+	i = 0;
+	if (old_map)
+		while (old_map[i])
+		{
+			new_map[i] = old_map[i];
+			i++;
+		}
+	new_map[i] = ft_strdup(line, collector);
+	new_map[i + 1] = NULL;
+	if (old_map)
+		gc_free(collector, old_map);
+	file->map = new_map;
 }
