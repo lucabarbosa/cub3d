@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/06 12:02:15 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:23:10 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,23 @@ typedef struct s_engine
   t_img   tex_we;
   t_img   tex_ea;
 }	t_engine;
+# include "parser.h"
 
+typedef struct s_file
+{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	char	*sky_color;
+	char	*floor_color;
+	char	*player;
+	int		player_row;
+	int		player_col;
+	char	**map;
+}	t_file;
+
+void	print_error(int num, t_gc **collector);
 
 typedef struct s_horz
 {

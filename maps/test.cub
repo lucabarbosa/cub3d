@@ -1,10 +1,10 @@
-NO ./textures/
-SO ./textures/
-WE ./textures/
-EA ./textures/
+NO ./assets/textures/wall.xpm
+SO ./assets/textures/wall_3.xpm
+WE ./assets/textures/wall_1.xpm
+EA ./assets/textures/wall_2.xpm
 
-F  000, 000, 00
-C  225,30,0
+F 0,0,0
+C 255,255,255
 
 111111
 100101

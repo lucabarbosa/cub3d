@@ -6,16 +6,25 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:26 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/04 14:24:01 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/07 16:30:00 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	main(void)
+static int	check_file(int argc);
+static void	init_cub3d(t_file *file);
+
+int	main(int argc, char **argv)
 {
+	t_file	file;
+	t_gc		*collector;
 	t_engine	engine;
 
+	if (check_file(argc))
+		return (1);
+	init_cub3d(&file);
+	parsing(argv[1], &file, &collector);
 	ft_memset(&engine, 0, sizeof(t_engine));
 	//TODO: verificar se o mapa
 	map_load_hardcoded(&engine.map);
@@ -31,5 +40,36 @@ int	main(void)
 	mlx_loop_hook(engine.mlx, game_loop, &engine);
 	mlx_loop(engine.mlx);
 	map_free(&engine.map);
+	gc_clear(&collector);
+	return (EXIT_SUCCESS);
+}
+
+static int	check_file(int argc)
+{
+	if (argc < 2)
+	{
+		ft_putendl_fd("The program expect some map.cub.", 2);
+		return (1);
+	}
+	if (argc > 2)
+	{
+		ft_putendl_fd("The program only accept one map per time.", 2);
+		return (1);
+	}
 	return (0);
 }
+
+static void	init_cub3d(t_file *file)
+{
+	file->no = NULL;
+	file->so = NULL;
+	file->we = NULL;
+	file->ea = NULL;
+	file->sky_color = NULL;
+	file->floor_color = NULL;
+	file->player = NULL;
+	file->player_row = 0;
+	file->player_col = 0;
+	file->map = NULL;
+}
+
