@@ -17,8 +17,9 @@ static int mm(double v)
     return ((int)(v * MINIMAP_SCALE));
 }
 
-void    minimap_render(t_img *img, t_player *p)
+void    minimap_render(t_img *img, t_player *p, t_map *map)
 {
+	(void) p;
     int i;
     int j;
     int tx;
@@ -29,10 +30,10 @@ void    minimap_render(t_img *img, t_player *p)
     int mh;
 
     i = 0;
-    while (i < MAP_NUM_ROWS)
+    while (i < map->rows)
     {
         j = 0;
-        while (j < MAP_NUM_COLS)
+        while (j < map->cols)
         {
             tx = mm(j * TILE_SIZE);
             ty = mm(i * TILE_SIZE);
@@ -41,26 +42,11 @@ void    minimap_render(t_img *img, t_player *p)
             mw = nx - tx; // sem gap de truncamento
             mh = ny - ty;
             if (g_grid[i][j] == 1)
-            {
                 draw_rect(img, tx, ty, mw, mh, color(0, 0, 0));
-                // draw_rect(img, tx, ty, mw, 1,  color(0, 255, 0));
-                // draw_rect(img, tx, ty, 1,  mh, color(0, 0, 255));
-            }
             j++;
         }
         i++;
     }
-    draw_circle_red(img, mm(p->x), mm(p->y),
-        (int)(p->radius * MINIMAP_SCALE) + 1);
-		t_line	line;
-		int		blue;
-
-		blue = color(0, 0, 255);
-		line.x0 = mm(p->x);
-		line.y0 = mm(p->y);
-		line.x1 = (int)(mm(p->x)
-				+ cos(p->rotation_angle) * 100 * MINIMAP_SCALE);
-		line.y1 = (int)(mm(p->y)
-				+ sin(p->rotation_angle) * 100 * MINIMAP_SCALE);
-		draw_line(img, &line, blue);
+    // draw_circle_red(img, mm(p->x), mm(p->y),
+    //     (int)(p->radius * MINIMAP_SCALE) + 1);
 }

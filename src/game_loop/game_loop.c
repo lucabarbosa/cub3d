@@ -29,7 +29,7 @@ int	game_loop(void *param)
 	scene_render(&e->frame, &e->map);
 	player_update(&e->player, &e->map);
 	render_walls(e);
-	minimap_render(&e->frame, &e->player);
+	minimap_render(&e->frame, &e->player, &e->map);
 	rays_render(&e->frame, e);
 	mlx_put_image_to_window(e->mlx, e->win, e->frame.img, 0, 0);
 	return (0);

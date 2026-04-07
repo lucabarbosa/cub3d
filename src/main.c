@@ -12,23 +12,24 @@
 
 #include "../includes/cub3d.h"
 
-int main(void)
+int	main(void)
 {
-    t_engine engine;
+	t_engine	engine;
 
-    ft_memset(&engine, 0, sizeof(t_engine));
-    map_load_hardcoded(&engine.map);
-    if (!engine_init(&engine, WIN_W, WIN_H, WIN_TITLE))
-    {
-        ft_putendl_fd("Error\nFailed to initialize MLX.", 2);
-        map_free(&engine.map);
-        return (1);
-    }
-		load_all_textures(&engine);
-    player_init(&engine.player, &engine.map);
-    engine_register_hooks(&engine);
-    mlx_loop_hook(engine.mlx, game_loop, &engine);
-    mlx_loop(engine.mlx);
-    map_free(&engine.map);
-    return (0);
+	ft_memset(&engine, 0, sizeof(t_engine));
+	//TODO: verificar se o mapa
+	map_load_hardcoded(&engine.map);
+	if (!engine_init(&engine, WIN_W, WIN_H, WIN_TITLE))
+	{
+		ft_putendl_fd("Error\nFailed to initialize MLX.", 2);
+		map_free(&engine.map);
+		return (1);
+	}
+	load_all_textures(&engine);
+	player_init(&engine.player, &engine.map);
+	engine_register_hooks(&engine);
+	mlx_loop_hook(engine.mlx, game_loop, &engine);
+	mlx_loop(engine.mlx);
+	map_free(&engine.map);
+	return (0);
 }

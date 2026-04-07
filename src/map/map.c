@@ -78,7 +78,7 @@ void	map_free(t_map *map)
 	map->grid = NULL;
 }
 
-int     map_has_wall(t_map *map, double x, double y)
+int	map_has_wall(t_map *map, double x, double y)
 {
 	int	map_x;
 	int	map_y;
@@ -92,33 +92,4 @@ int     map_has_wall(t_map *map, double x, double y)
 	map_x = (int)(x / map->tile_size);
 	map_y = (int)(y / map->tile_size);
 	return (map->grid[map_y][map_x] != 0);
-}
-
-void	map_render(t_img *img)
-{
-	int	tile_color;
-	int	tx;
-	int	ty;
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < MAP_NUM_ROWS)
-	{
-		j = 0;
-		while (j < MAP_NUM_COLS)
-		{
-			tx = j * TILE_SIZE;
-			ty = i * TILE_SIZE;
-			if (g_grid[i][j] == 1)
-				tile_color = color(255, 255, 0);
-			else
-				tile_color = color(255, 255, 255);
-			draw_rect(img, tx, ty, TILE_SIZE, TILE_SIZE, tile_color);
-			// draw_rect(img, tx, ty, TILE_SIZE, 1, color(34, 34, 51));
-			// draw_rect(img, tx, ty, 1, TILE_SIZE, color(34, 34, 51));
-			j++;
-		}
-		i++;
-	}
 }

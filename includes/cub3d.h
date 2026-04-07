@@ -220,7 +220,7 @@ void    player_update(t_player *p, t_map *map);
 
 /* map/map.c */
 int     map_has_wall(t_map *map, double x, double y);
-void    map_render(t_img *img);
+void    map_render(t_img *img, t_map *map);
 void    map_load_hardcoded(t_map *map);
 void    map_free(t_map *map);
 
@@ -238,7 +238,8 @@ void	draw_circle_red(t_img *img, int cx, int cy, int r);
 void	draw_line(t_img *img, t_line *l, int color);
 int     color(int r, int g, int b);
 // map/map.c
-void    minimap_render(t_img *img, t_player *p);
+// void    minimap_render(t_img *img, t_player *p);
+void    minimap_render(t_img *img, t_player *p, t_map *map);
 // void    scene_render(t_img *img, t_scene *scene);
 
 void    scene_render(t_img *img, t_map *map);

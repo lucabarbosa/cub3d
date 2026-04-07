@@ -12,6 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
+//REFACTOR: usar a struct aqui
 void	draw_rect(t_img *img, int x, int y, int w, int h, int color)
 {
 	int	i;

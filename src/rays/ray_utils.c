@@ -12,17 +12,15 @@
 
 #include "../../includes/cub3d.h"
 
-double   normalize_angle(double angle)
+double	normalize_angle(double angle)
 {
-    angle = fmod(angle, 2 * M_PI);
-    if (angle < 0)
-        angle += 2 * M_PI;
-    return (angle);
+	angle = fmod(angle, 2 * M_PI);
+	if (angle < 0)
+		angle += 2 * M_PI;
+	return (angle);
 }
 
-double   dist_points(double x1, double y1, double x2, double y2)
+double	dist_points(double x1, double y1, double x2, double y2)
 {
-    return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
+	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }
-
-

@@ -49,6 +49,7 @@ void    render_walls(t_engine *e)
         wall_height = (TILE_SIZE * dist_proj_plane) / corrected;
         draw_start = (WIN_H / 2) - (wall_height / 2);
         draw_end = draw_start + (int)wall_height;
+				//REFACTOR: criar uma struct para render wll strip
         render_wall_strip(e, i, draw_start, draw_end, (int)wall_height);
         i++;
     }
