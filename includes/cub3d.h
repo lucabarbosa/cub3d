@@ -150,6 +150,15 @@ typedef struct s_ray
     int     was_hit_vertical; // bateu em parede vertical ou horizontal?
 }   t_ray;
 
+typedef struct s_wall_strip
+{
+    int     col;
+    int     draw_start;
+    int     draw_end;
+    int     wall_height;
+    t_ray   *ray;
+}   t_wall_strip;
+
 typedef struct s_engine
 {
 	void	*mlx;
