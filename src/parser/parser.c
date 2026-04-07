@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 13:12:00 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/06 01:58:03 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/07 19:18:35 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void		parsing(char *map, t_file *file, t_gc **collector);
 void		parse_file(int fd, t_file *file, t_gc **collector);
 void		check_map(char *line, t_file *file, t_gc **collector);
+static int	copy_data(char **old_map, char **new_map);
 static int	is_map_line(char *line);
 
 void	parsing(char *map, t_file *file, t_gc **collector)
@@ -83,16 +84,24 @@ void	check_map(char *line, t_file *file, t_gc **collector)
 	new_map = gc_malloc(collector, sizeof(char *) * (i + 2));
 	if (!new_map)
 		print_error(10, collector);
-	i = 0;
 	if (old_map)
-		while (old_map[i])
-		{
-			new_map[i] = old_map[i];
-			i++;
-		}
+		i = copy_data(old_map, new_map);
 	new_map[i] = ft_strdup(line, collector);
 	new_map[i + 1] = NULL;
 	if (old_map)
 		gc_free(collector, old_map);
 	file->map = new_map;
+}
+
+static int	copy_data(char **old_map, char **new_map)
+{
+	int	i;
+
+	i = 0;
+	while (old_map[i])
+	{
+		new_map[i] = old_map[i];
+		i++;
+	}
+	return (i);
 }

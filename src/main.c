@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:26 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/07 16:30:00 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/07 17:04:02 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ int	main(int argc, char **argv)
 {
 	t_file	file;
 	t_gc		*collector;
-	t_engine	engine;
+	t_engine		engine;
 
 	if (check_file(argc))
 		return (1);
 	init_cub3d(&file);
 	parsing(argv[1], &file, &collector);
 	ft_memset(&engine, 0, sizeof(t_engine));
-	//TODO: verificar se o mapa
 	map_load_hardcoded(&engine.map);
 	if (!engine_init(&engine, WIN_W, WIN_H, WIN_TITLE))
 	{

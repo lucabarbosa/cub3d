@@ -6,14 +6,13 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 00:02:04 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/07 00:31:36 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/07 19:19:57 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parser.h"
 #include "../../includes/cub3d.h"
 
-void	validate_map(t_file *file, t_gc **collector);
 static int	check_chars(t_file *file);
 static int	check_player(t_file *file, t_gc **collector);
 static int	secure_map(t_file *file, t_gc **collector);
@@ -21,7 +20,7 @@ static int	flood_fill(char **map, int row, int col);
 
 void	validate_map(t_file *file, t_gc **collector)
 {
-   if (!file->no || !file->so || !file->we || !file->ea)
+	if (!file->no || !file->so || !file->we || !file->ea)
 		print_error(4, collector);
 	if (!file->sky_color || !file->floor_color)
 		print_error(6, collector);
@@ -88,7 +87,7 @@ static int	check_player(t_file *file, t_gc **collector)
 
 static int	secure_map(t_file *file, t_gc **collector)
 {
-	int	i;
+	int		i;
 	char	**copied_map;
 
 	i = 0;

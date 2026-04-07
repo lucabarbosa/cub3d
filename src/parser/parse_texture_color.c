@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 22:27:10 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/06 01:38:32 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/07 17:03:19 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static int	isnt_rgb(char *line, t_gc **collector)
 	while (rgb[i])
 	{
 		if (isnt_digit(rgb[i]))
-		return (1);
+			return (1);
 		value = ft_atoi(rgb[i]);
 		if (value < 0 || value > 255)
 			return (1);
