@@ -93,7 +93,7 @@ gdb: debug
 
 valgrind: debug
 	@printf "$(BLUE)🔍 Starting Valgrind...$(RESET)\n"
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(DEBUG_TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(DEBUG_TARGET) maps/test.cub
 
 run_asan: asan
 	@printf "$(YELLOW)🧪 Running with ASan...$(RESET)\n"

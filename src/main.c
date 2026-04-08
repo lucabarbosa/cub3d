@@ -6,27 +6,28 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:26 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/08 14:38:31 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/08 18:56:18 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
 static int	check_file(int argc);
-static void	init_cub3d(t_file *file);
+static void	init_cub3d(t_file *file, t_gc **collector);
 
 int	main(int argc, char **argv)
 {
-	t_file	file;
+	t_engine	engine;
+	t_file		file;
 	t_gc		*collector;
-	t_engine		engine;
 
 	if (check_file(argc))
 		return (1);
-	init_cub3d(&file);
+	collector = NULL;
+	init_cub3d(&file, &collector);
 	parsing(argv[1], &file, &collector);
 	ft_memset(&engine, 0, sizeof(t_engine));
-	map_load(&engine.map, file);
+	map_load(&engine.map, file, &collector);
 	if (!engine_init(&engine, WIN_W, WIN_H, WIN_TITLE))
 	{
 		ft_putendl_fd("Error\nFailed to initialize MLX.", 2);
@@ -58,17 +59,23 @@ static int	check_file(int argc)
 	return (0);
 }
 
-static void	init_cub3d(t_file *file)
+static void	init_cub3d(t_file *file, t_gc **collector)
 {
 	file->no = NULL;
 	file->so = NULL;
 	file->we = NULL;
 	file->ea = NULL;
-	file->sky_color = NULL;
-	file->floor_color = NULL;
+	file->sky_color = gc_malloc(collector, sizeof(t_rgb));
+	if (!file->sky_color)
+		print_error(10, collector);
+	file->floor_color = gc_malloc(collector, sizeof(t_rgb));
+	if (!file->floor_color)
+		print_error(10, collector);
 	file->player = NULL;
 	file->player_row = 0;
 	file->player_col = 0;
+	file->total_lines = 0;
+	file->total_cols = 0;
 	file->map = NULL;
 }
 

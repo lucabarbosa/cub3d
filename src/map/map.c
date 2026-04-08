@@ -6,61 +6,30 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 14:56:02 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/08 14:38:19 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/08 19:06:58 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-//REFACTOR: be a malloct array of ints
-//TEST:
-int g_grid[11][15] = {
-    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,1,0,1},
-    {1,0,0,0,0,1,0,0,0,0,0,0,1,0,1},
-    {1,1,1,1,0,0,0,0,0,0,1,0,1,0,1},
-    {1,0,0,0,0,0,0,0,0,0,1,0,1,0,1},
-    {1,0,0,0,0,0,0,0,1,1,1,1,1,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,1,1,1,1,1,0,0,0,1,1,1,1,0,1},
-    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-};
 
-//TEST:
-//NOTE: Luca, usar essa funcao para criar sua funcao do parser
-void    map_load(t_map *map, t_file file)
+void	map_load(t_map *map, t_file file, t_gc **collector)
 {
-	int	i;
 
-	map->rows      = 11;
-	map->cols      = 15;
+	map->grid = convert_grid_map(&file, collector);
 	map->tile_size = 64;
-	map->grid      = malloc(sizeof(int *) * map->rows);
-	if (!map->grid)
-			return ;
-	i = 0;
-	while (i < map->rows)
-	{
-			map->grid[i] = malloc(sizeof(int) * map->cols);
-			if (!map->grid[i])
-					return ;
-			ft_memcpy(map->grid[i], g_grid[i], sizeof(int) * map->cols);
-			i++;
-	}
+	map->rows = file.total_lines;
+	map->cols = file.total_cols;
 	map->tex_no = file.no;
 	map->tex_so = file.so;
 	map->tex_ea = file.ea;
 	map->tex_we = file.we;
-	map->player_x = 2;
-	map->player_y = 5;
-	map->player_dir = 'S';
-	//NOTE: Luca, na hora que achar o player_dir, setar o valor no mapa para um tile vazio
-	//com o valor 0, substituir a letra pelo char 0
-
-	//TEST: hardcoded map floor color
-	map->ceiling_color = color(0, 255, 0);
-	map->floor_color = color(255, 0, 0);
+	map->player_y = file.player_row;
+	map->player_x = file.player_col;
+	map->player_dir = *file.player;
+	map->ceiling_color = color(file.sky_color->red, file.sky_color->green,
+			file.sky_color->blue);
+	map->floor_color = color(file.floor_color->red, file.floor_color->green,
+			file.floor_color->blue);
 }
 
 void	map_free(t_map *map)

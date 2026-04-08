@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/21 22:27:10 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/07 17:03:19 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/08 19:05:01 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void			check_texture(char *line, t_file *file, t_gc **collector);
 void			check_color(char *line, t_file *file, t_gc **collector);
 static int		isnt_rgb(char *line, t_gc **collector);
+static void		put_rgb(t_rgb *color, char *path, t_gc **collector);
 
 void	check_texture(char *line, t_file *file, t_gc **collector)
 {
@@ -61,15 +62,15 @@ void	check_color(char *line, t_file *file, t_gc **collector)
 	i = skip_space_tab(path, i);
 	if (identifier == 'F')
 	{
-		file->floor_color = ft_strdup(path + i, collector);
-		if (isnt_rgb(file->floor_color, collector))
+		if (isnt_rgb(path + i, collector))
 			print_error(5, collector);
+		put_rgb(file->floor_color, path + i, collector);
 	}
 	if (identifier == 'C')
 	{
-		file->sky_color = ft_strdup(path + i, collector);
-		if (isnt_rgb(file->sky_color, collector))
+		if (isnt_rgb(path + i, collector))
 			print_error(5, collector);
+		put_rgb(file->sky_color, path + i, collector);
 	}
 	gc_free(collector, path);
 }
@@ -99,4 +100,14 @@ static int	isnt_rgb(char *line, t_gc **collector)
 		i++;
 	}
 	return (0);
+}
+
+static void	put_rgb(t_rgb *color, char *path, t_gc **collector)
+{
+	char	**rgb;
+
+	rgb = ft_split(path, ',', collector);
+	color->red = ft_atoi(rgb[0]);
+	color->green = ft_atoi(rgb[1]);
+	color->blue = ft_atoi(rgb[2]);
 }

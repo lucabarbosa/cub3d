@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 09:05:15 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/01 12:04:48 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/08 19:02:06 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void    minimap_render(t_img *img, t_player *p, t_map *map)
             ny = mm((i + 1) * TILE_SIZE);
             mw = nx - tx; // sem gap de truncamento
             mh = ny - ty;
-            if (g_grid[i][j] == 1)
+            if (map->grid[i][j] == 1)
                 draw_rect(img, tx, ty, mw, mh, color(0, 0, 0));
             j++;
         }
