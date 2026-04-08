@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 14:56:02 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/06 12:11:05 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/08 14:38:19 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 //REFACTOR: be a malloct array of ints
 //TEST:
@@ -28,7 +29,7 @@ int g_grid[11][15] = {
 
 //TEST:
 //NOTE: Luca, usar essa funcao para criar sua funcao do parser
-void    map_load_hardcoded(t_map *map)
+void    map_load(t_map *map, t_file file)
 {
 	int	i;
 
@@ -47,10 +48,10 @@ void    map_load_hardcoded(t_map *map)
 			ft_memcpy(map->grid[i], g_grid[i], sizeof(int) * map->cols);
 			i++;
 	}
-	map->tex_no = "assets/textures/north.xpm";
-	map->tex_so = "assets/textures/south.xpm";
-	map->tex_ea = "assets/textures/east.xpm";
-	map->tex_we = "assets/textures/west.xpm";
+	map->tex_no = file.no;
+	map->tex_so = file.so;
+	map->tex_ea = file.ea;
+	map->tex_we = file.we;
 	map->player_x = 2;
 	map->player_y = 5;
 	map->player_dir = 'S';

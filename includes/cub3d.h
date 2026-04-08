@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/07 16:23:10 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/08 14:38:25 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,7 +246,7 @@ void    player_update(t_player *p, t_map *map);
 /* map/map.c */
 int     map_has_wall(t_map *map, double x, double y);
 void    map_render(t_img *img, t_map *map);
-void    map_load_hardcoded(t_map *map);
+void    map_load(t_map *map, t_file file);
 void    map_free(t_map *map);
 
 /* game_loop.c */

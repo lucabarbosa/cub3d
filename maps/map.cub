@@ -1,7 +1,7 @@
-NO ./assets/textures/wall.xpm
-SO ./assets/textures/wall_3.xpm
-WE ./assets/textures/wall_1.xpm
-EA ./assets/textures/wall_2.xpm
+NO ./assets/textures/north.xpm
+SO ./assets/textures/south.xpm
+WE ./assets/textures/west.xpm
+EA ./assets/textures/east.xpm
 
 F  0,000,00
 C  225,30,1

@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:26 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/07 17:04:02 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/08 14:38:31 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	init_cub3d(&file);
 	parsing(argv[1], &file, &collector);
 	ft_memset(&engine, 0, sizeof(t_engine));
-	map_load_hardcoded(&engine.map);
+	map_load(&engine.map, file);
 	if (!engine_init(&engine, WIN_W, WIN_H, WIN_TITLE))
 	{
 		ft_putendl_fd("Error\nFailed to initialize MLX.", 2);
