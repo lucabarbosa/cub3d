@@ -286,5 +286,6 @@ int     load_texture(t_engine *e, t_img *tex, char *path);
 t_img   *get_texture(t_engine *e, t_ray *ray);
 
 void load_all_textures(t_engine *engine);
+void	free_all_textures(t_engine *e);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:29:47 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/06 12:04:05 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/09 06:31:33 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	on_destroy(void *param)
 	t_engine	*engine;
 
 	engine = (t_engine *)param;
+	free_all_textures(engine);
 	engine_shutdown(engine);
 	map_free(&engine->map);
-	//TODO: colocar o free das texturas? 
 	exit(0);
 }
 
