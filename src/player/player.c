@@ -36,25 +36,39 @@ void	player_init(t_player *p, t_map *map)
 	set_rotation_angle(p, map->player_dir);
 }
 
-void	player_update(t_player *p, t_map *map)
+void    player_update(t_player *p, t_map *map)
 {
-	double	move_step;
-	double	strafe_step;
-	double	nx;
-	double	ny;
+    double  new_x;
+    double  new_y;
 
-	p->rotation_angle += p->rotation_speed * p->turn_direction;
-	move_step = p->move_speed * p->walk_direction;
-	strafe_step = p->move_speed * p->strafe_direction;
-	nx = p->x + cos(p->rotation_angle) * move_step;
-	ny = p->y + sin(p->rotation_angle) * move_step;
-	nx += cos(p->rotation_angle + M_PI_2) * strafe_step;
-	ny += sin(p->rotation_angle + M_PI_2) * strafe_step;
-	if (!map_has_wall(map, nx, p->y))
-		p->x = nx;
-	if (!map_has_wall(map, p->x, ny))
-		p->y = ny;
+    p->rotation_angle += p->rotation_speed * p->turn_direction;
+    new_x = p->x + cos(p->rotation_angle) * p->move_speed * p->walk_direction;
+    new_y = p->y + sin(p->rotation_angle) * p->move_speed * p->walk_direction;
+    if (!has_wall_near(map, new_x, new_y))
+    {
+        p->x = new_x;
+        p->y = new_y;
+    }
 }
+// void	player_update(t_player *p, t_map *map)
+// {
+// 	double	move_step;
+// 	double	strafe_step;
+// 	double	nx;
+// 	double	ny;
+//
+// 	p->rotation_angle += p->rotation_speed * p->turn_direction;
+// 	move_step = p->move_speed * p->walk_direction;
+// 	strafe_step = p->move_speed * p->strafe_direction;
+// 	nx = p->x + cos(p->rotation_angle) * move_step;
+// 	ny = p->y + sin(p->rotation_angle) * move_step;
+// 	nx += cos(p->rotation_angle + M_PI_2) * strafe_step;
+// 	ny += sin(p->rotation_angle + M_PI_2) * strafe_step;
+// 	if (!map_has_wall(map, nx, p->y))
+// 		p->x = nx;
+// 	if (!map_has_wall(map, p->x, ny))
+// 		p->y = ny;
+// }
 
 void	player_render(t_img *img, t_player *p)
 {
