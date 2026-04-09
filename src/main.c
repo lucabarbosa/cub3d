@@ -78,4 +78,3 @@ static void	init_cub3d(t_file *file, t_gc **collector)
 	file->total_cols = 0;
 	file->map = NULL;
 }
-

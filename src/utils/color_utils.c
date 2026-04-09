@@ -14,7 +14,7 @@
 
 int	color(int r, int g, int b)
 {
-    return ((r << 16) | (g << 8) | b);
+	return ((r << 16) | (g << 8) | b);
 }
 
 void	put_pixel(t_img *img, int x, int y, int color)

@@ -42,18 +42,14 @@ void	player_update(t_player *p, t_map *map)
 	double	strafe_step;
 	double	nx;
 	double	ny;
-	// rotação
+
 	p->rotation_angle += p->rotation_speed * p->turn_direction;
-	// movimento
 	move_step = p->move_speed * p->walk_direction;
 	strafe_step = p->move_speed * p->strafe_direction;
-	// calcula nova posição
 	nx = p->x + cos(p->rotation_angle) * move_step;
 	ny = p->y + sin(p->rotation_angle) * move_step;
-	// adiciona strafing (perpendicular)
 	nx += cos(p->rotation_angle + M_PI_2) * strafe_step;
 	ny += sin(p->rotation_angle + M_PI_2) * strafe_step;
-	// colisão separada por eixo (melhor comportamento)
 	if (!map_has_wall(map, nx, p->y))
 		p->x = nx;
 	if (!map_has_wall(map, p->x, ny))

@@ -18,8 +18,8 @@ int	on_destroy(void *param)
 
 	engine = (t_engine *)param;
 	engine_shutdown(engine);
-	//REFACTOR: possivelmente terei que mudar isso 
 	map_free(&engine->map);
+	//TODO: colocar o free das texturas? 
 	exit(0);
 }
 

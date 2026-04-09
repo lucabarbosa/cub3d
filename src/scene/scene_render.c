@@ -12,7 +12,7 @@
 
 #include "../../includes/cub3d.h"
 
-void scene_render(t_img *img, t_map *map)
+void	scene_render(t_img *img, t_map *map)
 {
 	t_rect	floor;
 	t_rect	ceiling;
@@ -27,7 +27,6 @@ void scene_render(t_img *img, t_map *map)
 	floor.w = WIN_W;
 	floor.h = WIN_H / 2;
 	floor.color = map->floor_color;
-
 	draw_rect(img, ceiling);
 	draw_rect(img, floor);
 }

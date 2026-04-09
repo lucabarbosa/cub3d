@@ -63,3 +63,5 @@ void	load_all_textures(t_engine *engine)
 	load_texture(engine, &engine->tex_we, engine->map.tex_we);
 	load_texture(engine, &engine->tex_ea, engine->map.tex_ea);
 }
+
+//TODO: funcao de free? 
