@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/08 17:36:34 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/09 07:14:43 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,6 @@
 #define WALL_STRIP_WIDTH 1
 #define NUM_RAYS (WIN_W / WALL_STRIP_WIDTH)
 #define MINIMAP_SCALE  0.2f
-// no header
-
-//TEST:
-extern int g_grid[MAP_NUM_ROWS][MAP_NUM_COLS];
 
 typedef struct s_map
 {
@@ -63,6 +59,12 @@ typedef struct s_map
 	char	*tex_we;
 	char	*tex_ea;
 }	t_map;
+
+typedef struct s_step
+{
+    double  x;
+    double  y;
+}   t_step;
 
 typedef struct s_line
 {
@@ -82,16 +84,7 @@ typedef struct s_scene
 	int ceiling_color;
 	int floor_color;
 }   t_scene;
-/*
-** t_img — representa uma imagem MLX (frame buffer ou textura)
-**
-** img          : handle opaco retornado por mlx_new_image()
-** addr         : ponteiro para os bytes brutos dos pixels
-** bits_per_pixel: profundidade de cor (normalmente 32)
-** line_length  : bytes por linha (pode ser maior que w * bpp/8)
-** endian       : ordem dos bytes de cor (0 = little-endian)
-** w / h        : largura e altura em pixels
-*/
+
 typedef struct s_img
 {
 	void	*img;
@@ -102,16 +95,6 @@ typedef struct s_img
 	int		w;
 	int		h;
 }	t_img;
-
-/*
-** t_engine — camada MLX: conexão, janela e frame buffer
-**
-** mlx     : ponteiro de conexão com o servidor X (retorno de mlx_init)
-** win     : ponteiro da janela visível (retorno de mlx_new_window)
-** frame   : imagem off-screen onde desenhamos antes de jogar na janela
-** win_w/h : dimensões da janela em pixels
-** running : quando false, o loop encerra e libera os recursos
-*/
 
 typedef struct s_rect
 {
@@ -144,11 +127,11 @@ typedef struct s_ray
 	int     is_facing_up;
 	int     is_facing_down;
 
-	double  wall_hit_x;       // resultado final — onde o raio bateu
+	double  wall_hit_x;
 	double  wall_hit_y;
-	double  distance;         // distância até a parede
-	double  wall_x;           // fração 0.0~1.0 dentro do tile (para textura)
-	int     was_hit_vertical; // bateu em parede vertical ou horizontal?
+	double  distance;
+	double  wall_x;
+	int     was_hit_vertical;
 }   t_ray;
 
 typedef struct s_wall_strip
@@ -217,18 +200,12 @@ typedef struct s_vert
 	int		found;
 }	t_vert;
 
-// em t_engine, adicionar o array de raios:
-// t_ray   rays[NUM_RAYS];
-
-// protótipos novos:
 double	normalize_angle(double angle);
 double	dist_points(double x1, double y1, double x2, double y2);
-//horizontal
-void	get_horz_step(t_ray *ray, double *xstep, double *ystep);
+void	get_horz_step(t_ray *ray, t_step *step);
 void	cast_horizontal(t_ray *ray, t_player *p, t_map *map, t_horz *h);
 void	set_horz_result(t_player *p, t_horz *h, double *hd);
-//vertical
-void	get_vert_step(t_ray *ray, double *xstep, double *ystep);
+void	get_vert_step(t_ray *ray, t_step *step);
 void	cast_vertical(t_ray *ray, t_player *p, t_map *map, t_vert *v);
 void	set_vert_result(t_player *p, t_vert *v, double *vd);
 void	init_ray(t_ray *ray, double ray_angle);
@@ -236,48 +213,33 @@ void	cast_ray(t_ray *ray, t_player *p, t_map *map);
 void	cast_all_rays(t_engine *e);
 void	rays_render(t_img *img, t_engine *e);
 
-/* mlx/engine_init.c */
 int		engine_init(t_engine *e, int w, int h, const char *title);
 
-/* mlx/engine_shutdown.c */
 void	engine_shutdown(t_engine *e);
 
-/* mlx/engine_hooks.c */
 void	engine_register_hooks(t_engine *engine);
 int		on_destroy(void *param);
 
-
-/* player/player.c */
 void	player_init(t_player *p, t_map *map);
 void	player_render(t_img *img, t_player *p);
 void	player_update(t_player *p, t_map *map);
 
-/* map/map.c */
 int		map_has_wall(t_map *map, double x, double y);
 void	map_render(t_img *img, t_map *map);
 void	map_load(t_map *map, t_file file, t_gc **collector);
 void	map_free(t_map *map);
 
-/* game_loop.c */
 int	game_loop(void *param);
 
-/* mlx/draw.c */
 void	put_pixel(t_img *img, int x, int y, int color);
-// void    draw_rect(t_img *img, int x, int y, int w, int h, int color);
 
 void	draw_rect(t_img *img, t_rect rect);
-// void	draw_rect(t_img *img, int x, int y, int w, int h, int color);
 void	draw_circle_red(t_img *img, int cx, int cy, int r);
-// void    draw_circle(t_img *img, int cx, int cy, int r, int color);
 void	draw_line(t_img *img, t_line *l, int color);
 int	color(int r, int g, int b);
-// map/map.c
-// void    minimap_render(t_img *img, t_player *p);
 void    minimap_render(t_img *img, t_player *p, t_map *map);
-// void    scene_render(t_img *img, t_scene *scene);
 
 void    scene_render(t_img *img, t_map *map);
-// utils
 int color(int r, int g, int b);
 void    render_walls(t_engine *e);
 

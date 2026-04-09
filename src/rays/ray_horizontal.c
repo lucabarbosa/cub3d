@@ -6,57 +6,55 @@
 /*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 10:51:48 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/06 10:51:55 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/09 07:11:07 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	get_horz_step(t_ray *ray, double *xstep, double *ystep)
+void	get_horz_step(t_ray *ray, t_step *step)
 {
-	*ystep = TILE_SIZE;
+	step->y = TILE_SIZE;
 	if (ray->is_facing_up)
-		*ystep = -TILE_SIZE;
-	*xstep = TILE_SIZE / tan(ray->ray_angle);
-	if (ray->is_facing_left && *xstep > 0)
-		*xstep *= -1;
-	if (ray->is_facing_right && *xstep < 0)
-		*xstep *= -1;
+		step->y = -TILE_SIZE;
+	step->x = TILE_SIZE / tan(ray->ray_angle);
+	if (ray->is_facing_left && step->x > 0)
+		step->x *= -1;
+	if (ray->is_facing_right && step->x < 0)
+		step->x *= -1;
+}
+
+static void	horz_wall_loop(t_ray *ray, t_map *map, t_horz *h, t_step *step)
+{
+	while (h->hit_x >= 0 && h->hit_x <= map->cols * TILE_SIZE
+		&& h->hit_y >= 0 && h->hit_y <= map->rows * TILE_SIZE)
+	{
+		if (ray->is_facing_up && map_has_wall(map, h->hit_x, h->hit_y - 1))
+		{
+			h->found = 1;
+			return ;
+		}
+		if (!ray->is_facing_up && map_has_wall(map, h->hit_x, h->hit_y))
+		{
+			h->found = 1;
+			return ;
+		}
+		h->hit_x += step->x;
+		h->hit_y += step->y;
+	}
 }
 
 void	cast_horizontal(t_ray *ray, t_player *p, t_map *map, t_horz *h)
 {
-	double	x;
-	double	y;
-	double	xstep;
-	double	ystep;
+	t_step	step;
 
-	y = floor(p->y / TILE_SIZE) * TILE_SIZE;
-	if (ray->is_facing_down)
-		y += TILE_SIZE;
-	x = p->x + (y - p->y) / tan(ray->ray_angle);
-	get_horz_step(ray, &xstep, &ystep);
 	h->found = 0;
-	while (x >= 0 && x <= map->cols * TILE_SIZE
-		&& y >= 0 && y <= map->rows * TILE_SIZE)
-	{
-		if (ray->is_facing_up && map_has_wall(map, x, y - 1))
-		{
-			h->found = 1;
-			h->hit_x = x;
-			h->hit_y = y;
-			break ;
-		}
-		if (!ray->is_facing_up && map_has_wall(map, x, y))
-		{
-			h->found = 1;
-			h->hit_x = x;
-			h->hit_y = y;
-			break ;
-		}
-		x += xstep;
-		y += ystep;
-	}
+	h->hit_y = floor(p->y / TILE_SIZE) * TILE_SIZE;
+	if (ray->is_facing_down)
+		h->hit_y += TILE_SIZE;
+	h->hit_x = p->x + (h->hit_y - p->y) / tan(ray->ray_angle);
+	get_horz_step(ray, &step);
+	horz_wall_loop(ray, map, h, &step);
 }
 
 void	set_horz_result(t_player *p, t_horz *h, double *hd)

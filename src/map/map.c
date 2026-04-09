@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/23 14:56:02 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/08 19:06:58 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/09 07:17:16 by fabialme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	map_load(t_map *map, t_file file, t_gc **collector)
 {
-
 	map->grid = convert_grid_map(&file, collector);
 	map->tile_size = 64;
 	map->rows = file.total_lines;
