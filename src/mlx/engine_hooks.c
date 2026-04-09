@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_hooks.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:29:47 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/09 06:31:33 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/09 13:47:44 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	on_destroy(void *param)
 	engine = (t_engine *)param;
 	free_all_textures(engine);
 	engine_shutdown(engine);
-	map_free(&engine->map);
+	gc_clear(engine->collector);
 	exit(0);
 }
 

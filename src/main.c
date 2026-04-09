@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:26 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/08 18:56:18 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/09 13:57:49 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	main(int argc, char **argv)
 	parsing(argv[1], &file, &collector);
 	ft_memset(&engine, 0, sizeof(t_engine));
 	map_load(&engine.map, file, &collector);
-	if (!engine_init(&engine, WIN_W, WIN_H, WIN_TITLE))
+	if (!engine_init(&engine, WIN_W, WIN_H, &collector))
 	{
 		ft_putendl_fd("Error\nFailed to initialize MLX.", 2);
-		map_free(&engine.map);
+		gc_clear(&collector);
 		return (1);
 	}
 	load_all_textures(&engine);

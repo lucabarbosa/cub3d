@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 16:28:52 by fabialme          #+#    #+#             */
-/*   Updated: 2026/03/16 16:29:29 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/09 13:57:09 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@
 **
 ** Retorna 1 em sucesso, 0 em qualquer falha.
 */
-int	engine_init(t_engine *e, int w, int h, const char *title)
+int	engine_init(t_engine *e, int w, int h, t_gc **collect)
 {
 	e->mlx = mlx_init();
 	if (!e->mlx)
 		return (0);
-	e->win = mlx_new_window(e->mlx, w, h, (char *)title);
+	e->win = mlx_new_window(e->mlx, w, h, "cub3d");
 	if (!e->win)
 		return (0);
 	e->frame.img = mlx_new_image(e->mlx, w, h);
@@ -51,5 +51,6 @@ int	engine_init(t_engine *e, int w, int h, const char *title)
 	e->frame.w = w;
 	e->frame.h = h;
 	e->running = true;
+	e->collector = collect;
 	return (1);
 }

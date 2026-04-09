@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 19:36:21 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/09 07:14:43 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/09 13:46:12 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 
 # define WIN_W		1024
 # define WIN_H		720
-# define WIN_TITLE	"cub3d"
 
 #define TILE_SIZE     64
 #define MAP_NUM_ROWS  11
@@ -145,6 +144,7 @@ typedef struct s_wall_strip
 
 typedef struct s_engine
 {
+	t_gc	**collector;
 	void	*mlx;
 	void	*win;
 	t_img	frame;
@@ -213,7 +213,7 @@ void	cast_ray(t_ray *ray, t_player *p, t_map *map);
 void	cast_all_rays(t_engine *e);
 void	rays_render(t_img *img, t_engine *e);
 
-int		engine_init(t_engine *e, int w, int h, const char *title);
+int		engine_init(t_engine *e, int w, int h, t_gc **collector);
 
 void	engine_shutdown(t_engine *e);
 
