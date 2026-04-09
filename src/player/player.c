@@ -1,0 +1,71 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/23 14:54:02 by fabialme          #+#    #+#             */
+/*   Updated: 2026/04/06 12:08:57 by fabialme         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/cub3d.h"
+
+static void	set_rotation_angle(t_player *p, char dir)
+{
+	if (dir == 'N')
+		p->rotation_angle = 3.0 * M_PI / 2.0;
+	else if (dir == 'S')
+		p->rotation_angle = M_PI / 2.0;
+	else if (dir == 'E')
+		p->rotation_angle = 0.0;
+	else if (dir == 'W')
+		p->rotation_angle = M_PI;
+}
+
+void	player_init(t_player *p, t_map *map)
+{
+	p->x = map->player_x * map->tile_size + map->tile_size / 2;
+	p->y = map->player_y * map->tile_size + map->tile_size / 2;
+	p->radius = 5;
+	p->turn_direction = 0;
+	p->walk_direction = 0;
+	p->move_speed = 2.0;
+	p->rotation_speed = 2.0 * (M_PI / 180.0);
+	set_rotation_angle(p, map->player_dir);
+}
+
+void	player_update(t_player *p, t_map *map)
+{
+	double	move_step;
+	double	strafe_step;
+	double	nx;
+	double	ny;
+
+	p->rotation_angle += p->rotation_speed * p->turn_direction;
+	move_step = p->move_speed * p->walk_direction;
+	strafe_step = p->move_speed * p->strafe_direction;
+	nx = p->x + cos(p->rotation_angle) * move_step;
+	ny = p->y + sin(p->rotation_angle) * move_step;
+	nx += cos(p->rotation_angle + M_PI_2) * strafe_step;
+	ny += sin(p->rotation_angle + M_PI_2) * strafe_step;
+	if (!map_has_wall(map, nx, p->y))
+		p->x = nx;
+	if (!map_has_wall(map, p->x, ny))
+		p->y = ny;
+}
+
+void	player_render(t_img *img, t_player *p)
+{
+	int		red;
+	t_line	line;
+
+	red = color(255, 0, 0);
+	draw_circle_red(img, (int)p->x, (int)p->y, p->radius);
+	line.x0 = (int)p->x;
+	line.y0 = (int)p->y;
+	line.x1 = (int)(p->x + cos(p->rotation_angle) * 20);
+	line.y1 = (int)(p->y + sin(p->rotation_angle) * 20);
+	draw_line(img, &line, red);
+}

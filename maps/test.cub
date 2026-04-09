@@ -1,13 +1,13 @@
-NO ./textures/
-SO ./textures/
-WE ./textures/
-EA ./textures/
+NO ./assets/textures/magma_floor.xpm
+SO ./assets/textures/dirty_mossy_tiles.xpm
+WE ./assets/textures/grass.xpm
+EA ./assets/textures/metal_floor.xpm
 
-F  000, 000, 00
-C  225,30,0
+F 0,100,30
+C 0,0,100
 
 111111
-100101
+100001
 101001
 1100N1
 111111

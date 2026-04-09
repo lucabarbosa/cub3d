@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   garbage_colector.h                                 :+:      :+:    :+:   */
+/*   scene_render.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/11 00:25:41 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/03 18:27:23 by lbento           ###   ########.fr       */
+/*   Created: 2026/04/01 09:26:38 by fabialme          #+#    #+#             */
+/*   Updated: 2026/04/07 16:32:12 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GARBAGE_COLECTOR_H
-# define GARBAGE_COLECTOR_H
+#include "../../includes/cub3d.h"
 
-# include <stdlib.h>
-
-typedef struct s_gc
+void	scene_render(t_img *img, t_map *map)
 {
-	void		*ptr;
-	struct s_gc	*next;
-}	t_gc;
+	t_rect	floor;
+	t_rect	ceiling;
 
-void	gc_clear(t_gc **gc);
-int	gc_add(t_gc **gc, void *ptr);
-void	gc_free(t_gc **gc, void *ptr);
-void	*gc_malloc(t_gc **gc, size_t size);
-
-#endif
+	ceiling.x = 0;
+	ceiling.y = 0;
+	ceiling.w = WIN_W;
+	ceiling.h = WIN_H / 2;
+	ceiling.color = map->ceiling_color;
+	floor.x = 0;
+	floor.y = WIN_H / 2;
+	floor.w = WIN_W;
+	floor.h = WIN_H / 2;
+	floor.color = map->floor_color;
+	draw_rect(img, ceiling);
+	draw_rect(img, floor);
+}
