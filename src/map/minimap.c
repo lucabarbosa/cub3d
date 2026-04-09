@@ -12,23 +12,31 @@
 
 #include "../../includes/cub3d.h"
 
-static int mm(double v)
+static int  mm(double v)
 {
     return ((int)(v * MINIMAP_SCALE));
 }
 
+static void draw_tile(t_img *img, int tx, int ty, int mw, int mh)
+{
+    t_rect  rect;
+
+    rect.x = tx;
+    rect.y = ty;
+    rect.w = mw;
+    rect.h = mh;
+    rect.color = color(0, 0, 0);
+    draw_rect(img, rect);
+}
+
 void    minimap_render(t_img *img, t_player *p, t_map *map)
 {
-	(void) p;
     int i;
     int j;
     int tx;
     int ty;
-    int nx; // posição do próximo tile
-    int ny;
-    int mw; // largura real até o próximo tile
-    int mh;
 
+    (void)p;
     i = 0;
     while (i < map->rows)
     {
@@ -37,16 +45,12 @@ void    minimap_render(t_img *img, t_player *p, t_map *map)
         {
             tx = mm(j * TILE_SIZE);
             ty = mm(i * TILE_SIZE);
-            nx = mm((j + 1) * TILE_SIZE);
-            ny = mm((i + 1) * TILE_SIZE);
-            mw = nx - tx; // sem gap de truncamento
-            mh = ny - ty;
             if (map->grid[i][j] == 1)
-                draw_rect(img, tx, ty, mw, mh, color(0, 0, 0));
+                draw_tile(img, tx, ty,
+                    mm((j + 1) * TILE_SIZE) - tx,
+                    mm((i + 1) * TILE_SIZE) - ty);
             j++;
         }
         i++;
     }
-    // draw_circle_red(img, mm(p->x), mm(p->y),
-    //     (int)(p->radius * MINIMAP_SCALE) + 1);
 }

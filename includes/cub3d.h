@@ -265,8 +265,8 @@ int	game_loop(void *param);
 void	put_pixel(t_img *img, int x, int y, int color);
 // void    draw_rect(t_img *img, int x, int y, int w, int h, int color);
 
-// void	draw_rect(t_img *img, t_rect rect);
-void	draw_rect(t_img *img, int x, int y, int w, int h, int color);
+void	draw_rect(t_img *img, t_rect rect);
+// void	draw_rect(t_img *img, int x, int y, int w, int h, int color);
 void	draw_circle_red(t_img *img, int cx, int cy, int r);
 // void    draw_circle(t_img *img, int cx, int cy, int r, int color);
 void	draw_line(t_img *img, t_line *l, int color);
