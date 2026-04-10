@@ -6,14 +6,14 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:24:50 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/03 19:00:47 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/10 14:12:54 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "garbage_colector.h"
 
 void	gc_clear(t_gc **gc);
-int	gc_add(t_gc **gc, void *ptr);
+int		gc_add(t_gc **gc, void *ptr);
 void	gc_free(t_gc **gc, void *ptr);
 void	*gc_malloc(t_gc **gc, size_t size);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 10:37:49 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/06 11:23:23 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/10 14:18:20 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 void	init_ray(t_ray *ray, double ray_angle)
 {
-	ray->ray_angle = normalize_angle(ray_angle);
+	double	angle;
+
+	angle = normalize_angle(ray_angle);
+	ray->ray_angle = angle;
 	ray->wall_hit_x = 0;
 	ray->wall_hit_y = 0;
 	ray->distance = 0;
 	ray->was_hit_vertical = 0;
 	ray->wall_x = 0;
-	ray->is_facing_down = (ray->ray_angle > 0) && (ray->ray_angle < M_PI);
+	ray->is_facing_down = (angle > 0 && angle < M_PI);
 	ray->is_facing_up = !ray->is_facing_down;
-	ray->is_facing_right = ray->ray_angle < M_PI / 2 || ray->ray_angle > (3 * M_PI) / 2;
+	ray->is_facing_right = (angle < M_PI / 2 || angle > (3 * M_PI) / 2);
 	ray->is_facing_left = !ray->is_facing_right;
 }
 

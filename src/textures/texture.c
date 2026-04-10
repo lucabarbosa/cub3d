@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fabialme <fabialme@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/04 14:32:04 by fabialme          #+#    #+#             */
-/*   Updated: 2026/04/06 11:42:13 by fabialme         ###   ########.fr       */
+/*   Updated: 2026/04/10 14:24:24 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,3 @@ void	load_all_textures(t_engine *engine)
 	load_texture(engine, &engine->tex_we, engine->map.tex_we);
 	load_texture(engine, &engine->tex_ea, engine->map.tex_ea);
 }
-
-//TODO: funcao de free? 
