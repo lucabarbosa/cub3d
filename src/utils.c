@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 14:58:58 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/06 02:39:06 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/10 11:52:39 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	print_error(int num, t_gc **collector)
 		ft_putstr_fd("The map must have 1 player.\n", 2);
 	if (num == 9)
 		ft_putstr_fd("Map isn't surrounded by walls.\n", 2);
+	if (num == 11)
+		ft_putstr_fd("The map and texture need have permissions.\n", 2);
 	if (num == 10)
 		perror("Error: ");
 	gc_clear(collector);

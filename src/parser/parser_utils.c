@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/06 01:19:20 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/06 01:27:20 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/10 11:54:28 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	dotcub(char *map, t_gc **collector);
 int	dotxpm(char *line, t_gc **collector);
 int	isnt_digit(char *str);
 int	skip_space_tab(char *path, int i);
+void	check_permissions(t_file *file, t_gc **collector);
 
 int	dotcub(char *map, t_gc **collector)
 {
@@ -37,6 +38,10 @@ int	dotcub(char *map, t_gc **collector)
 		gc_clear(collector);
 		exit (1);
 	}
+	fd = open(map, O_RDONLY);
+	if (fd < 0)
+		print_error(11, collector);
+	close (fd);
 	return (0);
 }
 
@@ -85,4 +90,26 @@ int	skip_space_tab(char *path, int i)
 	while (path[i] == ' ' || path[i] == '\t')
 		i++;
 	return (i);
+}
+
+void	check_permissions(t_file *file, t_gc **collector)
+{
+	int	fd;
+	
+	fd = open(file->no, O_RDONLY);
+	if (fd < 0)
+		print_error(11, collector);
+	close (fd);
+	fd = open(file->so, O_RDONLY);
+	if (fd < 0)
+		print_error(11, collector);
+	close (fd);
+	fd = open(file->we, O_RDONLY);
+	if (fd < 0)
+		print_error(11, collector);
+	close (fd);
+	fd = open(file->ea, O_RDONLY);
+	if (fd < 0)
+		print_error(11, collector);
+	close (fd);
 }

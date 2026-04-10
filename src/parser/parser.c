@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 13:12:00 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/08 17:46:21 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/10 11:44:58 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	parsing(char *map, t_file *file, t_gc **collector)
 		print_error(2, NULL);
 	parse_file(fd, file, collector);
 	close(fd);
+	check_permissions(file, collector);
 	validate_map(file, collector);
 	total_cols_lines(file);
 }
