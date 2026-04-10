@@ -17,24 +17,17 @@ static int	mm(double v)
 	return ((int)(v * MINIMAP_SCALE));
 }
 
-static void	draw_tile(t_img *img, int tx, int ty, int mw, int mh)
+static void	draw_tile(t_img *img, t_rect rect)
 {
-	t_rect	rect;
-
-	rect.x = tx;
-	rect.y = ty;
-	rect.w = mw;
-	rect.h = mh;
 	rect.color = color(0, 0, 0);
 	draw_rect(img, rect);
 }
 
 void	minimap_render(t_img *img, t_player *p, t_map *map)
 {
-	int	i;
-	int	j;
-	int	tx;
-	int	ty;
+	t_rect	rect;
+	int		i;
+	int		j;
 
 	(void)p;
 	i = 0;
@@ -43,12 +36,12 @@ void	minimap_render(t_img *img, t_player *p, t_map *map)
 		j = 0;
 		while (j < map->cols)
 		{
-			tx = mm(j * TILE_SIZE);
-			ty = mm(i * TILE_SIZE);
+			rect.x = mm(j * TILE_SIZE);
+			rect.y = mm(i * TILE_SIZE);
+			rect.w = mm((j + 1) * TILE_SIZE) - rect.x;
+			rect.h = mm((i + 1) * TILE_SIZE) - rect.y;
 			if (map->grid[i][j] == 1)
-				draw_tile(img, tx, ty,
-						mm((j + 1) * TILE_SIZE) - tx,
-						mm((i + 1) * TILE_SIZE) - ty);
+				draw_tile(img, rect);
 			j++;
 		}
 		i++;

@@ -1,0 +1,16 @@
+NO ./assets/textures/brick_wall_north.xpm
+SO ./assets/textures/brick_wall_south.xpm
+WE ./assets/textures/brick_wall_cracked_west.xpm
+EA ./assets/textures/brick_wall_cracked_east.xpm
+
+F 42,42,42
+C 100,100,200
+
+  111111
+ 1100001
+1100000111
+1000000001
+10S0000001
+1100000011
+ 11000011
+  111111

@@ -12,6 +12,22 @@
 
 #include "../../includes/cub3d.h"
 
+int	has_wall_near(t_map *map, double x, double y)
+{
+	double	margin;
+
+	margin = 2.0;
+	if (map_has_wall(map, x + margin, y))
+		return (1);
+	if (map_has_wall(map, x - margin, y))
+		return (1);
+	if (map_has_wall(map, x, y + margin))
+		return (1);
+	if (map_has_wall(map, x, y - margin))
+		return (1);
+	return (0);
+}
+
 void	map_load(t_map *map, t_file file, t_gc **collector)
 {
 	map->grid = convert_grid_map(&file, collector);
